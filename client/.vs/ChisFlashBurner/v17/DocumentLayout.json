@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|f:\\disk\\self-study\\c#\\chisflashburner\\chisflashburner\\mission_gba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\mission_gba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|f:\\disk\\self-study\\c#\\chisflashburner\\chisflashburner\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|F:\\disk\\Self-study\\C#\\ChisFlashBurner\\chisflashburner\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|F:\\disk\\Self-study\\C#\\ChisFlashBurner\\chisflashburner\\mission_mbc5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|f:\\disk\\self-study\\c#\\chisflashburner\\chisflashburner\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|f:\\disk\\self-study\\c#\\chisflashburner\\chisflashburner\\mission_mbc5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\mission_mbc5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -19,12 +19,12 @@
       "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\cart_adapter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|F:\\disk\\Self-study\\C#\\ChisFlashBurner\\chisflashburner\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|F:\\disk\\Self-study\\C#\\ChisFlashBurner\\chisflashburner\\mission_gba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\mission_gba.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:ChisFlashBurner\\utility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|F:\\disk\\Self-study\\C#\\ChisFlashBurner\\chisflashburner\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4ADCBEFD-FA00-40A5-A9A0-8570DD741AFB}|ChisFlashBurner\\ChisFlashBurner.csproj|solutionrelative:chisflashburner\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,24 +33,25 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 173,
-          "SelectedChildIndex": 3,
+          "DockedWidth": 162,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "utility.cs",
               "DocumentMoniker": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\utility.cs",
               "RelativeDocumentMoniker": "ChisFlashBurner\\utility.cs",
               "ToolTip": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\utility.cs",
               "RelativeToolTip": "ChisFlashBurner\\utility.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAADwv5AAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAtwEQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T09:56:56.924Z"
+              "WhenOpened": "2025-04-16T09:56:56.924Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\Form1.cs",
               "RelativeDocumentMoniker": "ChisFlashBurner\\Form1.cs",
@@ -62,35 +63,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "mission_mbc5.cs",
-              "DocumentMoniker": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\mission_mbc5.cs",
-              "RelativeDocumentMoniker": "ChisFlashBurner\\mission_mbc5.cs",
-              "ToolTip": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\mission_mbc5.cs",
-              "RelativeToolTip": "ChisFlashBurner\\mission_mbc5.cs",
-              "ViewState": "AgIAANwBAAAAAAAAAAApwLgCAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T08:29:40.757Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "mission_gba.cs",
               "DocumentMoniker": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\mission_gba.cs",
               "RelativeDocumentMoniker": "ChisFlashBurner\\mission_gba.cs",
               "ToolTip": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\mission_gba.cs",
               "RelativeToolTip": "ChisFlashBurner\\mission_gba.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAcwJsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAI4AAAAAAAAAAAAawJwAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T09:37:02.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T09:37:02.599Z"
             }
           ]
         },
         {
-          "DockedWidth": 227,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 238,
+          "SelectedChildIndex": 7,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{f4fc5ff1-28ef-4b04-ad02-6b298310ccc7}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3822e751-eb69-4b0e-b301-595a9e4c74d5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{4a9b7e51-aa16-11d0-a8c5-00a0c921a4d2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -99,21 +111,34 @@
               "RelativeDocumentMoniker": "ChisFlashBurner\\cart_adapter.cs",
               "ToolTip": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\cart_adapter.cs",
               "RelativeToolTip": "ChisFlashBurner\\cart_adapter.cs",
-              "ViewState": "AgIAACABAAAAAAAAAAAqwDkBAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAwC0AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-29T07:39:58.598Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\Form1.cs",
               "RelativeDocumentMoniker": "ChisFlashBurner\\Form1.cs",
               "ToolTip": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\Form1.cs",
               "RelativeToolTip": "ChisFlashBurner\\Form1.cs",
-              "ViewState": "AgIAAN4AAAAAAAAAAADgv/0AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAAAFoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-16T08:56:30.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "mission_mbc5.cs",
+              "DocumentMoniker": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\mission_mbc5.cs",
+              "RelativeDocumentMoniker": "ChisFlashBurner\\mission_mbc5.cs",
+              "ToolTip": "F:\\disk\\Self-study\\C#\\ChisFlashBurner\\ChisFlashBurner\\mission_mbc5.cs",
+              "RelativeToolTip": "ChisFlashBurner\\mission_mbc5.cs",
+              "ViewState": "AgIAAIgCAAAAAAAAAAAMwC4BAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T08:29:40.757Z",
               "EditorCaption": ""
             }
           ]

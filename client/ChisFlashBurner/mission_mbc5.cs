@@ -34,7 +34,7 @@ namespace ChisFlashBurner
          * | 游戏15      | 1 110B BBBB BBxx xxxx xxxx xxxx | 0111 0BBx xxxx xxxx xxxx | 2m 32k                                                                                                                                                      |
          * | 游戏16      | 1 111B BBBB BBxx xxxx xxxx xxxx | 0111 1BBx xxxx xxxx xxxx | 2m 32k  
         */
-        UInt32[,] multiCardAddrRange_rom = new UInt32[,]
+        UInt32[,] mbc5_multiCardAddrRange_rom = new UInt32[,]
         {
             //   from         to
             { 0, 0 },                   // 整卡
@@ -57,7 +57,7 @@ namespace ChisFlashBurner
             { 0x01e00000, 0x01ffffff }  // 游戏16
         };
 
-        UInt32[,] multiCardAddrRange_ram = new UInt32[,]
+        UInt32[,] mbc5_multiCardAddrRange_ram = new UInt32[,]
         {
             { 0,0 },             // 整卡
             { 0x00000, 0x07fff },// 菜单
@@ -288,8 +288,8 @@ namespace ChisFlashBurner
             int gameSelect = comboBox_mbc5MultiCartSelect.SelectedIndex;
             if (gameSelect != 0)
             {
-                addrBegin = (int)multiCardAddrRange_rom[gameSelect, 0];
-                addrEnd = (int)multiCardAddrRange_rom[gameSelect, 1];
+                addrBegin = (int)mbc5_multiCardAddrRange_rom[gameSelect, 0];
+                addrEnd = (int)mbc5_multiCardAddrRange_rom[gameSelect, 1];
             }
             else
             {
@@ -325,8 +325,7 @@ namespace ChisFlashBurner
             byte[] temp = new byte[512];
             gbcCart_read((UInt32)addr, ref temp);
 
-            bool blank = isBlank(temp);
-            if (!blank)
+            if (!isBlank(temp))
             {
                 Stopwatch swErase = new Stopwatch();
                 swErase.Start();
@@ -390,21 +389,55 @@ namespace ChisFlashBurner
 
         void mission_dumpRom_mbc5()
         {
+            string romFilePath = textBox_romPath.Text; // 打开文件
+
+            FileStream file;
+            try
+            {
+                file = new FileStream(romFilePath, FileMode.Create, FileAccess.Write);
+            }
+            catch
+            {
+                printLog("文件被占用");
+                port.Close();
+                enableButton();
+                return;
+            }
+
             int fileLength = (int)(double.Parse(comboBox_romSize_mbc5.Text) * 1024 * 1024);
             byte[] rom = new byte[fileLength];
+
+
+            // 获取rom flash buffer大小
+            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
+            mbc5_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+
 
             // 获取工作区间
             int addrBegin, addrEnd;
             int gameSelect = comboBox_mbc5MultiCartSelect.SelectedIndex;
             if (gameSelect != 0)
             {
-                addrBegin = (int)multiCardAddrRange_rom[gameSelect, 0];
-                addrEnd = (int)multiCardAddrRange_rom[gameSelect, 1];
+                addrBegin = (int)mbc5_multiCardAddrRange_rom[gameSelect, 0];
+                addrEnd = (int)mbc5_multiCardAddrRange_rom[gameSelect, 1];
             }
             else
             {
                 addrBegin = 0;
                 addrEnd = fileLength - 1;
+            }
+
+            if (addrEnd > deviceSize - 1)
+            {
+                fileLength = deviceSize - addrBegin;
+                if (fileLength <= 0)
+                {
+                    printLog("该地址无数据");
+                    file.Close();
+                    port.Close();
+                    enableButton();
+                    return;
+                }
             }
 
             // 开始读取
@@ -450,20 +483,6 @@ namespace ChisFlashBurner
             stopwatch.Stop();
 
             // 保存
-            string romFilePath = textBox_romPath.Text; // 打开文件
-
-            FileStream file;
-            try
-            {
-                file = new FileStream(romFilePath, FileMode.Create, FileAccess.Write);
-            }
-            catch
-            {
-                printLog("文件被占用");
-                port.Close();
-                enableButton();
-                return;
-            }
 
             file.Write(rom, 0, fileLength);
             file.Close();
@@ -503,8 +522,8 @@ namespace ChisFlashBurner
             int gameSelect = comboBox_mbc5MultiCartSelect.SelectedIndex;
             if (gameSelect != 0)
             {
-                addrBegin = (int)multiCardAddrRange_rom[gameSelect, 0];
-                addrEnd = (int)multiCardAddrRange_rom[gameSelect, 1];
+                addrBegin = (int)mbc5_multiCardAddrRange_rom[gameSelect, 0];
+                addrEnd = (int)mbc5_multiCardAddrRange_rom[gameSelect, 1];
             }
             else
             {
@@ -600,8 +619,8 @@ namespace ChisFlashBurner
             int gameSelect = comboBox_mbc5MultiCartSelect.SelectedIndex;
             if (gameSelect != 0)
             {
-                addrBegin = (int)multiCardAddrRange_ram[gameSelect, 0];
-                addrEnd = (int)multiCardAddrRange_ram[gameSelect, 1];
+                addrBegin = (int)mbc5_multiCardAddrRange_ram[gameSelect, 0];
+                addrEnd = (int)mbc5_multiCardAddrRange_ram[gameSelect, 1];
             }
             else
             {
@@ -660,6 +679,20 @@ namespace ChisFlashBurner
 
         void mission_dumpRam_mbc5()
         {
+            string savFilePath = textBox_savePath.Text; // 打开文件
+            FileStream file;
+            try
+            {
+                file = new FileStream(savFilePath, FileMode.Create, FileAccess.Write);
+            }
+            catch
+            {
+                printLog("文件被占用");
+                port.Close();
+                enableButton();
+                return;
+            }
+
             int fileLength = (int)(double.Parse(comboBox_saveSize_mbc5.Text) * 1024);
             byte[] sav = new byte[fileLength];
 
@@ -668,8 +701,8 @@ namespace ChisFlashBurner
             int gameSelect = comboBox_mbc5MultiCartSelect.SelectedIndex;
             if (gameSelect != 0)
             {
-                addrBegin = (int)multiCardAddrRange_ram[gameSelect, 0];
-                addrEnd = (int)multiCardAddrRange_ram[gameSelect, 1];
+                addrBegin = (int)mbc5_multiCardAddrRange_ram[gameSelect, 0];
+                addrEnd = (int)mbc5_multiCardAddrRange_ram[gameSelect, 1];
             }
             else
             {
@@ -721,20 +754,6 @@ namespace ChisFlashBurner
             stopwatch.Stop();
 
             // 保存
-            string savFilePath = textBox_savePath.Text; // 打开文件
-            FileStream file;
-            try
-            {
-                file = new FileStream(savFilePath, FileMode.Create, FileAccess.Write);
-            }
-            catch
-            {
-                printLog("文件被占用");
-                port.Close();
-                enableButton();
-                return;
-            }
-
             file.Write(sav, 0, fileLength);
             file.Close();
 
@@ -773,8 +792,8 @@ namespace ChisFlashBurner
             int gameSelect = comboBox_mbc5MultiCartSelect.SelectedIndex;
             if (gameSelect != 0)
             {
-                addrBegin = (int)multiCardAddrRange_ram[gameSelect, 0];
-                addrEnd = (int)multiCardAddrRange_ram[gameSelect, 1];
+                addrBegin = (int)mbc5_multiCardAddrRange_ram[gameSelect, 0];
+                addrEnd = (int)mbc5_multiCardAddrRange_ram[gameSelect, 1];
             }
             else
             {

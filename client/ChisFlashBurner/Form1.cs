@@ -125,6 +125,8 @@ namespace ChisFlashBurner
                     else
                         comboBox_romSize.Text = "32";
                     tabControl1.SelectTab(0);
+                    comboBox_ramType.SelectedIndex = 1;
+                    comboBox_gbaMultiCartSelect.SelectedIndex = 0;
                 }
                 else if (extension.ToLower() == ".gbc" || extension.ToLower() == ".gb")
                 {
@@ -133,10 +135,9 @@ namespace ChisFlashBurner
                     else
                         comboBox_romSize_mbc5.Text = "8";
                     tabControl1.SelectTab(1);
+                    comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
                 }
 
-                comboBox_ramType.SelectedIndex = 1;
-                comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
 
             }
 

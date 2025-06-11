@@ -59,6 +59,7 @@
             this.comboBox_ramType = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.comboBox_gbaMultiCartSelect = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btn_eraseChip_mbc5 = new System.Windows.Forms.Button();
             this.comboBox_mbc5MultiCartSelect = new System.Windows.Forms.ComboBox();
@@ -72,7 +73,6 @@
             this.btn_readSave_mbc5 = new System.Windows.Forms.Button();
             this.btn_writeRom_mbc5 = new System.Windows.Forms.Button();
             this.btn_writeSave_mbc5 = new System.Windows.Forms.Button();
-            this.comboBox_gbaMultiCartSelect = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -82,7 +82,7 @@
             // btn_browseRom
             // 
             this.btn_browseRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_browseRom.Location = new System.Drawing.Point(383, 10);
+            this.btn_browseRom.Location = new System.Drawing.Point(397, 10);
             this.btn_browseRom.Name = "btn_browseRom";
             this.btn_browseRom.Size = new System.Drawing.Size(60, 23);
             this.btn_browseRom.TabIndex = 0;
@@ -96,7 +96,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_romPath.Location = new System.Drawing.Point(46, 12);
             this.textBox_romPath.Name = "textBox_romPath";
-            this.textBox_romPath.Size = new System.Drawing.Size(331, 21);
+            this.textBox_romPath.Size = new System.Drawing.Size(345, 21);
             this.textBox_romPath.TabIndex = 1;
             // 
             // comboBox_com
@@ -108,7 +108,7 @@
             this.comboBox_com.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox_com.ForeColor = System.Drawing.SystemColors.InfoText;
             this.comboBox_com.FormattingEnabled = true;
-            this.comboBox_com.Location = new System.Drawing.Point(449, 12);
+            this.comboBox_com.Location = new System.Drawing.Point(463, 12);
             this.comboBox_com.Name = "comboBox_com";
             this.comboBox_com.Size = new System.Drawing.Size(123, 20);
             this.comboBox_com.TabIndex = 2;
@@ -116,7 +116,7 @@
             // btn_readID
             // 
             this.btn_readID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readID.Location = new System.Drawing.Point(512, 39);
+            this.btn_readID.Location = new System.Drawing.Point(526, 39);
             this.btn_readID.Name = "btn_readID";
             this.btn_readID.Size = new System.Drawing.Size(60, 23);
             this.btn_readID.TabIndex = 3;
@@ -135,7 +135,7 @@
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ReadOnly = true;
             this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_log.Size = new System.Drawing.Size(560, 243);
+            this.textBox_log.Size = new System.Drawing.Size(574, 243);
             this.textBox_log.TabIndex = 4;
             // 
             // progressBar_total
@@ -144,7 +144,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar_total.Location = new System.Drawing.Point(12, 421);
             this.progressBar_total.Name = "progressBar_total";
-            this.progressBar_total.Size = new System.Drawing.Size(560, 23);
+            this.progressBar_total.Size = new System.Drawing.Size(574, 23);
             this.progressBar_total.TabIndex = 7;
             // 
             // statusStrip1
@@ -156,7 +156,7 @@
             this.label_speed});
             this.statusStrip1.Location = new System.Drawing.Point(0, 451);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(584, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(598, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -170,7 +170,7 @@
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(425, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(439, 17);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // label_speed
@@ -203,13 +203,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_savePath.Location = new System.Drawing.Point(46, 39);
             this.textBox_savePath.Name = "textBox_savePath";
-            this.textBox_savePath.Size = new System.Drawing.Size(331, 21);
+            this.textBox_savePath.Size = new System.Drawing.Size(345, 21);
             this.textBox_savePath.TabIndex = 13;
             // 
             // btn_browseSave
             // 
             this.btn_browseSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_browseSave.Location = new System.Drawing.Point(383, 38);
+            this.btn_browseSave.Location = new System.Drawing.Point(397, 38);
             this.btn_browseSave.Name = "btn_browseSave";
             this.btn_browseSave.Size = new System.Drawing.Size(60, 23);
             this.btn_browseSave.TabIndex = 14;
@@ -220,7 +220,7 @@
             // btn_eraseChip
             // 
             this.btn_eraseChip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_eraseChip.Location = new System.Drawing.Point(471, 11);
+            this.btn_eraseChip.Location = new System.Drawing.Point(485, 11);
             this.btn_eraseChip.Name = "btn_eraseChip";
             this.btn_eraseChip.Size = new System.Drawing.Size(75, 52);
             this.btn_eraseChip.TabIndex = 15;
@@ -231,7 +231,7 @@
             // btn_writeRom
             // 
             this.btn_writeRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeRom.Location = new System.Drawing.Point(228, 11);
+            this.btn_writeRom.Location = new System.Drawing.Point(242, 11);
             this.btn_writeRom.Name = "btn_writeRom";
             this.btn_writeRom.Size = new System.Drawing.Size(75, 23);
             this.btn_writeRom.TabIndex = 16;
@@ -242,7 +242,7 @@
             // btn_readRom
             // 
             this.btn_readRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readRom.Location = new System.Drawing.Point(309, 11);
+            this.btn_readRom.Location = new System.Drawing.Point(323, 11);
             this.btn_readRom.Name = "btn_readRom";
             this.btn_readRom.Size = new System.Drawing.Size(75, 23);
             this.btn_readRom.TabIndex = 17;
@@ -253,7 +253,7 @@
             // btn_verifyRom
             // 
             this.btn_verifyRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifyRom.Location = new System.Drawing.Point(390, 11);
+            this.btn_verifyRom.Location = new System.Drawing.Point(404, 11);
             this.btn_verifyRom.Name = "btn_verifyRom";
             this.btn_verifyRom.Size = new System.Drawing.Size(75, 23);
             this.btn_verifyRom.TabIndex = 18;
@@ -264,7 +264,7 @@
             // btn_writeSave
             // 
             this.btn_writeSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeSave.Location = new System.Drawing.Point(228, 40);
+            this.btn_writeSave.Location = new System.Drawing.Point(242, 40);
             this.btn_writeSave.Name = "btn_writeSave";
             this.btn_writeSave.Size = new System.Drawing.Size(75, 23);
             this.btn_writeSave.TabIndex = 19;
@@ -275,7 +275,7 @@
             // btn_readSave
             // 
             this.btn_readSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readSave.Location = new System.Drawing.Point(309, 40);
+            this.btn_readSave.Location = new System.Drawing.Point(323, 40);
             this.btn_readSave.Name = "btn_readSave";
             this.btn_readSave.Size = new System.Drawing.Size(75, 23);
             this.btn_readSave.TabIndex = 20;
@@ -286,7 +286,7 @@
             // btn_verifySave
             // 
             this.btn_verifySave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifySave.Location = new System.Drawing.Point(390, 40);
+            this.btn_verifySave.Location = new System.Drawing.Point(404, 40);
             this.btn_verifySave.Name = "btn_verifySave";
             this.btn_verifySave.Size = new System.Drawing.Size(75, 23);
             this.btn_verifySave.TabIndex = 21;
@@ -323,7 +323,7 @@
             "128"});
             this.comboBox_saveSize.Location = new System.Drawing.Point(89, 42);
             this.comboBox_saveSize.Name = "comboBox_saveSize";
-            this.comboBox_saveSize.Size = new System.Drawing.Size(54, 20);
+            this.comboBox_saveSize.Size = new System.Drawing.Size(64, 20);
             this.comboBox_saveSize.TabIndex = 24;
             // 
             // comboBox_romSize
@@ -333,7 +333,7 @@
             this.comboBox_romSize.FormattingEnabled = true;
             this.comboBox_romSize.Location = new System.Drawing.Point(89, 13);
             this.comboBox_romSize.Name = "comboBox_romSize";
-            this.comboBox_romSize.Size = new System.Drawing.Size(54, 20);
+            this.comboBox_romSize.Size = new System.Drawing.Size(64, 20);
             this.comboBox_romSize.TabIndex = 25;
             // 
             // tmr_showSpeed
@@ -345,7 +345,7 @@
             // btn_renewPort
             // 
             this.btn_renewPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_renewPort.Location = new System.Drawing.Point(449, 39);
+            this.btn_renewPort.Location = new System.Drawing.Point(463, 39);
             this.btn_renewPort.Name = "btn_renewPort";
             this.btn_renewPort.Size = new System.Drawing.Size(60, 23);
             this.btn_renewPort.TabIndex = 26;
@@ -362,9 +362,9 @@
             this.comboBox_ramType.Items.AddRange(new object[] {
             "FLASH",
             "SRAM"});
-            this.comboBox_ramType.Location = new System.Drawing.Point(149, 42);
+            this.comboBox_ramType.Location = new System.Drawing.Point(159, 42);
             this.comboBox_ramType.Name = "comboBox_ramType";
-            this.comboBox_ramType.Size = new System.Drawing.Size(73, 20);
+            this.comboBox_ramType.Size = new System.Drawing.Size(77, 20);
             this.comboBox_ramType.TabIndex = 27;
             // 
             // tabControl1
@@ -376,7 +376,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 68);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(560, 98);
+            this.tabControl1.Size = new System.Drawing.Size(574, 98);
             this.tabControl1.TabIndex = 28;
             // 
             // tabPage1
@@ -397,10 +397,151 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(552, 72);
+            this.tabPage1.Size = new System.Drawing.Size(566, 72);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "GBA";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox_gbaMultiCartSelect
+            // 
+            this.comboBox_gbaMultiCartSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_gbaMultiCartSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_gbaMultiCartSelect.DropDownWidth = 100;
+            this.comboBox_gbaMultiCartSelect.FormattingEnabled = true;
+            this.comboBox_gbaMultiCartSelect.Items.AddRange(new object[] {
+            "整卡",
+            "合卡菜单",
+            "合卡8M",
+            "合卡12M",
+            "合卡16M",
+            "合卡20M",
+            "合卡24M",
+            "合卡28M",
+            "合卡32M",
+            "合卡36M",
+            "合卡40M",
+            "合卡44M",
+            "合卡48M",
+            "合卡52M",
+            "合卡56M",
+            "合卡60M",
+            "合卡64M",
+            "合卡68M",
+            "合卡72M",
+            "合卡76M",
+            "合卡80M",
+            "合卡84M",
+            "合卡88M",
+            "合卡92M",
+            "合卡96M",
+            "合卡100M",
+            "合卡104M",
+            "合卡108M",
+            "合卡112M",
+            "合卡116M",
+            "合卡120M",
+            "合卡124M",
+            "合卡128M",
+            "合卡132M",
+            "合卡136M",
+            "合卡140M",
+            "合卡144M",
+            "合卡148M",
+            "合卡152M",
+            "合卡156M",
+            "合卡160M",
+            "合卡164M",
+            "合卡168M",
+            "合卡172M",
+            "合卡176M",
+            "合卡180M",
+            "合卡184M",
+            "合卡188M",
+            "合卡192M",
+            "合卡196M",
+            "合卡200M",
+            "合卡204M",
+            "合卡208M",
+            "合卡212M",
+            "合卡216M",
+            "合卡220M",
+            "合卡224M",
+            "合卡228M",
+            "合卡232M",
+            "合卡236M",
+            "合卡240M",
+            "合卡244M",
+            "合卡248M",
+            "合卡252M",
+            "合卡256M",
+            "合卡260M",
+            "合卡264M",
+            "合卡268M",
+            "合卡272M",
+            "合卡276M",
+            "合卡280M",
+            "合卡284M",
+            "合卡288M",
+            "合卡292M",
+            "合卡296M",
+            "合卡300M",
+            "合卡304M",
+            "合卡308M",
+            "合卡312M",
+            "合卡316M",
+            "合卡320M",
+            "合卡324M",
+            "合卡328M",
+            "合卡332M",
+            "合卡336M",
+            "合卡340M",
+            "合卡344M",
+            "合卡348M",
+            "合卡352M",
+            "合卡356M",
+            "合卡360M",
+            "合卡364M",
+            "合卡368M",
+            "合卡372M",
+            "合卡376M",
+            "合卡380M",
+            "合卡384M",
+            "合卡388M",
+            "合卡392M",
+            "合卡396M",
+            "合卡400M",
+            "合卡404M",
+            "合卡408M",
+            "合卡412M",
+            "合卡416M",
+            "合卡420M",
+            "合卡424M",
+            "合卡428M",
+            "合卡432M",
+            "合卡436M",
+            "合卡440M",
+            "合卡444M",
+            "合卡448M",
+            "合卡452M",
+            "合卡456M",
+            "合卡460M",
+            "合卡464M",
+            "合卡468M",
+            "合卡472M",
+            "合卡476M",
+            "合卡480M",
+            "合卡484M",
+            "合卡488M",
+            "合卡492M",
+            "合卡496M",
+            "合卡500M",
+            "合卡504M",
+            "合卡508M",
+            "合卡512M"});
+            this.comboBox_gbaMultiCartSelect.Location = new System.Drawing.Point(159, 13);
+            this.comboBox_gbaMultiCartSelect.Name = "comboBox_gbaMultiCartSelect";
+            this.comboBox_gbaMultiCartSelect.Size = new System.Drawing.Size(77, 20);
+            this.comboBox_gbaMultiCartSelect.TabIndex = 40;
             // 
             // tabPage2
             // 
@@ -419,7 +560,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(552, 72);
+            this.tabPage2.Size = new System.Drawing.Size(566, 72);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MBC5";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -427,7 +568,7 @@
             // btn_eraseChip_mbc5
             // 
             this.btn_eraseChip_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_eraseChip_mbc5.Location = new System.Drawing.Point(471, 11);
+            this.btn_eraseChip_mbc5.Location = new System.Drawing.Point(485, 11);
             this.btn_eraseChip_mbc5.Name = "btn_eraseChip_mbc5";
             this.btn_eraseChip_mbc5.Size = new System.Drawing.Size(75, 52);
             this.btn_eraseChip_mbc5.TabIndex = 28;
@@ -460,7 +601,7 @@
             "14/16 (max)",
             "15/16 (max)",
             "16/16 (max)"});
-            this.comboBox_mbc5MultiCartSelect.Location = new System.Drawing.Point(149, 13);
+            this.comboBox_mbc5MultiCartSelect.Location = new System.Drawing.Point(163, 13);
             this.comboBox_mbc5MultiCartSelect.Name = "comboBox_mbc5MultiCartSelect";
             this.comboBox_mbc5MultiCartSelect.Size = new System.Drawing.Size(73, 20);
             this.comboBox_mbc5MultiCartSelect.TabIndex = 39;
@@ -469,7 +610,7 @@
             // btn_verifyRom_mbc5
             // 
             this.btn_verifyRom_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifyRom_mbc5.Location = new System.Drawing.Point(390, 11);
+            this.btn_verifyRom_mbc5.Location = new System.Drawing.Point(404, 11);
             this.btn_verifyRom_mbc5.Name = "btn_verifyRom_mbc5";
             this.btn_verifyRom_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_verifyRom_mbc5.TabIndex = 31;
@@ -480,7 +621,7 @@
             // btn_verifySave_mbc5
             // 
             this.btn_verifySave_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifySave_mbc5.Location = new System.Drawing.Point(390, 40);
+            this.btn_verifySave_mbc5.Location = new System.Drawing.Point(404, 40);
             this.btn_verifySave_mbc5.Name = "btn_verifySave_mbc5";
             this.btn_verifySave_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_verifySave_mbc5.TabIndex = 34;
@@ -502,7 +643,7 @@
             "512"});
             this.comboBox_saveSize_mbc5.Location = new System.Drawing.Point(89, 42);
             this.comboBox_saveSize_mbc5.Name = "comboBox_saveSize_mbc5";
-            this.comboBox_saveSize_mbc5.Size = new System.Drawing.Size(133, 20);
+            this.comboBox_saveSize_mbc5.Size = new System.Drawing.Size(147, 20);
             this.comboBox_saveSize_mbc5.TabIndex = 37;
             // 
             // comboBox_romSize_mbc5
@@ -517,7 +658,7 @@
             "32.0"});
             this.comboBox_romSize_mbc5.Location = new System.Drawing.Point(89, 13);
             this.comboBox_romSize_mbc5.Name = "comboBox_romSize_mbc5";
-            this.comboBox_romSize_mbc5.Size = new System.Drawing.Size(54, 20);
+            this.comboBox_romSize_mbc5.Size = new System.Drawing.Size(68, 20);
             this.comboBox_romSize_mbc5.TabIndex = 38;
             // 
             // label1
@@ -532,7 +673,7 @@
             // btn_readRom_mbc5
             // 
             this.btn_readRom_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readRom_mbc5.Location = new System.Drawing.Point(309, 11);
+            this.btn_readRom_mbc5.Location = new System.Drawing.Point(323, 11);
             this.btn_readRom_mbc5.Name = "btn_readRom_mbc5";
             this.btn_readRom_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_readRom_mbc5.TabIndex = 30;
@@ -552,7 +693,7 @@
             // btn_readSave_mbc5
             // 
             this.btn_readSave_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readSave_mbc5.Location = new System.Drawing.Point(309, 40);
+            this.btn_readSave_mbc5.Location = new System.Drawing.Point(323, 40);
             this.btn_readSave_mbc5.Name = "btn_readSave_mbc5";
             this.btn_readSave_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_readSave_mbc5.TabIndex = 33;
@@ -563,7 +704,7 @@
             // btn_writeRom_mbc5
             // 
             this.btn_writeRom_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeRom_mbc5.Location = new System.Drawing.Point(228, 11);
+            this.btn_writeRom_mbc5.Location = new System.Drawing.Point(242, 11);
             this.btn_writeRom_mbc5.Name = "btn_writeRom_mbc5";
             this.btn_writeRom_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_writeRom_mbc5.TabIndex = 29;
@@ -574,7 +715,7 @@
             // btn_writeSave_mbc5
             // 
             this.btn_writeSave_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeSave_mbc5.Location = new System.Drawing.Point(228, 40);
+            this.btn_writeSave_mbc5.Location = new System.Drawing.Point(242, 40);
             this.btn_writeSave_mbc5.Name = "btn_writeSave_mbc5";
             this.btn_writeSave_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_writeSave_mbc5.TabIndex = 32;
@@ -582,26 +723,11 @@
             this.btn_writeSave_mbc5.UseVisualStyleBackColor = true;
             this.btn_writeSave_mbc5.Click += new System.EventHandler(this.btn_writeSave_mbc5_Click);
             // 
-            // comboBox_gbaMultiCartSelect
-            // 
-            this.comboBox_gbaMultiCartSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_gbaMultiCartSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_gbaMultiCartSelect.DropDownWidth = 100;
-            this.comboBox_gbaMultiCartSelect.FormattingEnabled = true;
-            this.comboBox_gbaMultiCartSelect.Items.AddRange(new object[] {
-            "整卡",
-            "菜单",
-            "合卡续写"});
-            this.comboBox_gbaMultiCartSelect.Location = new System.Drawing.Point(149, 13);
-            this.comboBox_gbaMultiCartSelect.Name = "comboBox_gbaMultiCartSelect";
-            this.comboBox_gbaMultiCartSelect.Size = new System.Drawing.Size(73, 20);
-            this.comboBox_gbaMultiCartSelect.TabIndex = 40;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 473);
+            this.ClientSize = new System.Drawing.Size(598, 473);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_renewPort);
             this.Controls.Add(this.btn_browseSave);

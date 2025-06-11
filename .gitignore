@@ -1,3 +1,5 @@
 *.o
 *.7z
 *.log
+*.zip
+client/.vs/

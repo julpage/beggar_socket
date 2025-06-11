@@ -17,10 +17,8 @@ namespace ChisFlashBurner
             string timeStamp = DateTime.Now.ToString("[HH:mm:ss.ff]: ");
             string msg = timeStamp + s + "\r\n";
 
-
             textBox_log.AppendText(msg);
             textBox_log.ScrollToCaret();
-
         }
 
         public void printScore(int fileLength, long ms)
