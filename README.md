@@ -1,6 +1,9 @@
 # beggar_socket
 A lightweight gba cartridge burner, with limited functionality
 
+# pcb和原理图
+
+[sch_pcb](https://oshwhub.com/linscon/beggar_socket)
 
 # 协议&命令
 
