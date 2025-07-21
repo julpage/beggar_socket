@@ -106,39 +106,8 @@ namespace ChisFlashBurner
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 string filePath = ofd.FileName;
-                string extension = Path.GetExtension(filePath);
 
-                textBox_romPath.Text = filePath;
-
-                // 获取文件大小
-                double fileSizeInMiB;
-                FileInfo fileInfo = new FileInfo(filePath);
-                if (File.Exists(filePath))
-                    fileSizeInMiB = (double)(fileInfo.Length) / 1024.0 / 1024.0;
-                else
-                    fileSizeInMiB = 0.0;
-
-                if (extension.ToLower() == ".gba")
-                {
-                    if (fileSizeInMiB > 0)
-                        comboBox_romSize.Text = fileSizeInMiB.ToString("f3");
-                    else
-                        comboBox_romSize.Text = "32";
-                    tabControl1.SelectTab(0);
-                    comboBox_ramType.SelectedIndex = 1;
-                    comboBox_gbaMultiCartSelect.SelectedIndex = 0;
-                }
-                else if (extension.ToLower() == ".gbc" || extension.ToLower() == ".gb")
-                {
-                    if (fileSizeInMiB > 0)
-                        comboBox_romSize_mbc5.Text = fileSizeInMiB.ToString("f3");
-                    else
-                        comboBox_romSize_mbc5.Text = "8";
-                    tabControl1.SelectTab(1);
-                    comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
-                }
-
-
+                setTextbox_rom(filePath);
             }
 
         }
@@ -157,32 +126,7 @@ namespace ChisFlashBurner
             {
                 string filePath = ofd.FileName;
 
-                textBox_savePath.Text = filePath;
-
-                // 获取文件大小
-                double sizeInKib = 0.0;
-                FileInfo fileInfo = new FileInfo(filePath);
-                if (fileInfo.Exists)
-                {
-                    sizeInKib = (double)(fileInfo.Length) / 1024.0;
-                }
-
-
-                if (sizeInKib > 0)
-                {
-                    comboBox_saveSize.Text = sizeInKib.ToString("f3");
-                    comboBox_saveSize_mbc5.Text = sizeInKib.ToString("f3");
-                }
-                else
-                {
-                    comboBox_saveSize.Text = "128";
-                    comboBox_saveSize_mbc5.Text = "128";
-                }
-
-
-                comboBox_ramType.SelectedIndex = 1;
-                comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
-
+                setTextbox_save(filePath);
             }
         }
 
@@ -575,6 +519,98 @@ namespace ChisFlashBurner
             {
                 comboBox_romSize_mbc5.Text = "2.0";
                 comboBox_saveSize_mbc5.Text = "32.0";
+            }
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string filePath = files[0];
+
+            string extension = Path.GetExtension(filePath);
+
+            if(extension.ToLower() == ".sav")
+            {
+                setTextbox_save(filePath);
+            }
+            else
+            {
+                setTextbox_rom(filePath);
+            }
+
+        }
+
+
+        void setTextbox_save(string filePath)
+        {
+            textBox_savePath.Text = filePath;
+
+            // 获取文件大小
+            double sizeInKib = 0.0;
+            FileInfo fileInfo = new FileInfo(filePath);
+            if (fileInfo.Exists)
+            {
+                sizeInKib = (double)(fileInfo.Length) / 1024.0;
+            }
+
+
+            if (sizeInKib > 0)
+            {
+                comboBox_saveSize.Text = sizeInKib.ToString("f3");
+                comboBox_saveSize_mbc5.Text = sizeInKib.ToString("f3");
+            }
+            else
+            {
+                comboBox_saveSize.Text = "128";
+                comboBox_saveSize_mbc5.Text = "128";
+            }
+
+
+            comboBox_ramType.SelectedIndex = 1;
+            comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
+        }
+
+
+        void setTextbox_rom(string filePath)
+        {
+            textBox_romPath.Text = filePath;
+
+            // 获取文件大小
+            double fileSizeInMiB;
+            FileInfo fileInfo = new FileInfo(filePath);
+            if (File.Exists(filePath))
+                fileSizeInMiB = (double)(fileInfo.Length) / 1024.0 / 1024.0;
+            else
+                fileSizeInMiB = 0.0;
+
+            string extension = Path.GetExtension(filePath);
+
+            if (extension.ToLower() == ".gba")
+            {
+                if (fileSizeInMiB > 0)
+                    comboBox_romSize.Text = fileSizeInMiB.ToString("f3");
+                else
+                    comboBox_romSize.Text = "32";
+                tabControl1.SelectTab(0);
+                comboBox_ramType.SelectedIndex = 1;
+                comboBox_gbaMultiCartSelect.SelectedIndex = 0;
+            }
+            else if (extension.ToLower() == ".gbc" || extension.ToLower() == ".gb")
+            {
+                if (fileSizeInMiB > 0)
+                    comboBox_romSize_mbc5.Text = fileSizeInMiB.ToString("f3");
+                else
+                    comboBox_romSize_mbc5.Text = "8";
+                tabControl1.SelectTab(1);
+                comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
             }
         }
     }

@@ -141,10 +141,10 @@ namespace ChisFlashBurner
         {
             int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
             gba_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
-            
+
             int i = comboBox_gbaMultiCartSelect.SelectedIndex;
 
-            if( i!=0 || deviceSize > 32 * 1024 * 1024)
+            if (i != 0 || deviceSize > 32 * 1024 * 1024)
             {
                 return true;
             }
@@ -324,11 +324,21 @@ namespace ChisFlashBurner
             }
 
             int fileLength = (int)file.Length;
+            int romBufSize = fileLength;
 
-            byte[] rom = new byte[fileLength];
+            if (fileLength % 2 != 0)
+            {
+                romBufSize += 1; // 补齐为偶数
+            }
+
+            byte[] rom = new byte[romBufSize];
             file.Read(rom, 0, fileLength);
             file.Close();
 
+            if (fileLength % 2 != 0)
+            {
+                rom[romBufSize - 1] = 0xff;
+            }
 
             // 获取rom flash buffer大小
             int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
@@ -340,18 +350,17 @@ namespace ChisFlashBurner
             // 获取工作区间
             int addrBegin, addrEnd;
             addrBegin = gba_multiCardBaseAddr();
-            addrEnd = addrBegin + fileLength - 1;
+            addrEnd = addrBegin + romBufSize - 1;
 
 
             // 检查rom容量
             if ((addrEnd + 1) > deviceSize)
             {
-                printLog(string.Format("Flash 空间不足 需要{0:d} 剩余{1:d}", fileLength, deviceSize - addrBegin));
+                printLog(string.Format("Flash 空间不足 需要{0:d} 剩余{1:d}", romBufSize, deviceSize - addrBegin));
                 port.Close();
                 enableButton();
                 return;
             }
-
 
             // 自动擦除flash
             if (isMultiCard)
@@ -382,10 +391,10 @@ namespace ChisFlashBurner
             int currentBank = -1;
             int writtenCount = 0;
 
-            while (writtenCount < fileLength)
+            while (writtenCount < romBufSize)
             {
                 // 分包
-                int sentLen = fileLength - writtenCount;
+                int sentLen = romBufSize - writtenCount;
                 sentLen = sentLen > 4096 ? 4096 : sentLen;
 
                 byte[] sendPack = new byte[sentLen];
@@ -409,14 +418,14 @@ namespace ChisFlashBurner
                 rom_program((UInt32)romAddress, sendPack, (UInt16)bufferWriteBytes);
 
                 writtenCount += sentLen;
-                showProgress(writtenCount, fileLength);
+                showProgress(writtenCount, romBufSize);
             }
             stopwatch.Stop();
 
             port.Close();
             enableButton();
 
-            printScore(fileLength, stopwatch.ElapsedMilliseconds);
+            printScore(romBufSize, stopwatch.ElapsedMilliseconds);
         }
 
         void mission_dumpRom()
@@ -437,6 +446,9 @@ namespace ChisFlashBurner
             }
 
             int fileLength = (int)(double.Parse(comboBox_romSize.Text) * 1024 * 1024);
+            if (fileLength % 2 != 0)
+                fileLength += 1;
+
             byte[] rom = new byte[fileLength];
 
             // 获取rom flash buffer大小
@@ -532,10 +544,21 @@ namespace ChisFlashBurner
             }
 
             int fileLength = (int)file.Length;
+            int romBufSize = fileLength;
 
-            byte[] rom = new byte[fileLength];
+            if (fileLength % 2 != 0)
+            {
+                romBufSize += 1; // 补齐为偶数
+            }
+
+            byte[] rom = new byte[romBufSize];
             file.Read(rom, 0, fileLength);
             file.Close();
+
+            if(fileLength% 2 != 0)
+            {
+                rom[romBufSize - 1] = 0xff; // 补齐为偶数
+            }
 
             // 获取rom flash buffer大小
             int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
@@ -546,12 +569,13 @@ namespace ChisFlashBurner
             // 获取工作区间
             int addrBegin, addrEnd;
             addrBegin = gba_multiCardBaseAddr();
-            addrEnd = addrBegin + fileLength - 1;
+            addrEnd = addrBegin + romBufSize - 1;
 
+            // 合卡位置判断
             if (addrEnd > deviceSize - 1)
             {
-                fileLength = deviceSize - addrBegin;
-                if (fileLength <= 0)
+                romBufSize = deviceSize - addrBegin;
+                if (romBufSize <= 0)
                 {
                     printLog("该地址无数据");
                     port.Close();
@@ -567,10 +591,10 @@ namespace ChisFlashBurner
             int currentBank = -1;
             int readCount = 0;
 
-            while (readCount < fileLength)
+            while (readCount < romBufSize)
             {
                 // 分包
-                int readLen = fileLength - readCount;
+                int readLen = romBufSize - readCount;
                 readLen = readLen > 4096 ? 4096 : readLen;
 
                 int romAddress = addrBegin + readCount;
@@ -604,14 +628,14 @@ namespace ChisFlashBurner
                     }
                 }
                 readCount += readLen;
-                showProgress(readCount, fileLength);
+                showProgress(readCount, romBufSize);
             }
             stopwatch.Stop();
 
             port.Close();
             enableButton();
 
-            printScore(fileLength, stopwatch.ElapsedMilliseconds);
+            printScore(romBufSize, stopwatch.ElapsedMilliseconds);
         }
 
         void mission_wrtieSram()
