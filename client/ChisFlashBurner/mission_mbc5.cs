@@ -116,10 +116,10 @@ namespace ChisFlashBurner
                 mbc5_romSwitchBank(bank);
 
                 UInt32 _sa;
-                if (bank == 0)
-                    _sa = (UInt32)(0x0000 + (sa & 0x3fff));
-                else
-                    _sa = (UInt32)(0x4000 + (sa & 0x3fff));
+                //if (bank == 0)
+                //    _sa = (UInt32)(0x0000 + (sa & 0x3fff));
+                //else
+                _sa = (UInt32)(0x4000 + (sa & 0x3fff));
 
                 gbcCart_write(0xaaa, new byte[] { 0xaa });
                 gbcCart_write(0x555, new byte[] { 0x55 });
@@ -317,10 +317,10 @@ namespace ChisFlashBurner
 
             mbc5_romSwitchBank(bank);
 
-            if (bank == 0)
-                addr = 0x0000 + (addrBegin & 0x3fff);
-            else
-                addr = 0x4000 + (addrBegin & 0x3fff);
+            //if (bank == 0)
+            //    addr = 0x0000 + (addrBegin & 0x3fff);
+            //else
+            addr = 0x4000 + (addrBegin & 0x3fff);
 
             byte[] temp = new byte[512];
             gbcCart_read((UInt32)addr, ref temp);
@@ -368,10 +368,10 @@ namespace ChisFlashBurner
                     //printLog(string.Format("    切换至 bank{0:d}", bank));
                 }
 
-                if (bank == 0)
-                    cartAddress = 0x0000 + (romAddress & 0x3fff);
-                else
-                    cartAddress = 0x4000 + (romAddress & 0x3fff);
+                //if (bank == 0)
+                //    cartAddress = 0x0000 + (romAddress & 0x3fff);
+                //else
+                cartAddress = 0x4000 + (romAddress & 0x3fff);
 
                 // 写入
                 gbcCart_romProgram((UInt32)cartAddress, sendPack, (UInt16)bufferWriteBytes);
