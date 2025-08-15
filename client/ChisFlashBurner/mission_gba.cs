@@ -51,6 +51,14 @@ namespace ChisFlashBurner
             }
         }
 
+
+        void gba_romSwitchBank_byAddr(int addr)
+        {
+            int bank = addr / (32 * 1024 * 1024);
+            gba_romSwitchBank(bank);
+        }
+
+
         void gba_flashSwitchBank(int bank)
         {
             bank = bank == 0 ? 0 : 1;
@@ -61,7 +69,7 @@ namespace ChisFlashBurner
             ram_write(0x0000, new byte[] { (byte)bank });
         }
 
-        void gba_romGetSize(out int secotrCount, out int sectorSize, out int bufferWriteBytes, out int deviceSize)
+        void gba_romGetSize(out int sectorCount, out int sectorSize, out int bufferWriteBytes, out int deviceSize)
         {
             byte[] cfi = new byte[20];
             int temp, temp1;
@@ -83,7 +91,7 @@ namespace ChisFlashBurner
 
             temp = BitConverter.ToUInt16(cfi, 12);  // 2d
             temp1 = BitConverter.ToUInt16(cfi, 14); // 2e
-            secotrCount = (((temp1 & 0xff) << 8) | (temp & 0xff)) + 1;
+            sectorCount = (((temp1 & 0xff) << 8) | (temp & 0xff)) + 1;
 
             temp = BitConverter.ToUInt16(cfi, 16); // 2f
             temp1 = BitConverter.ToUInt16(cfi, 18); // 30
@@ -139,8 +147,8 @@ namespace ChisFlashBurner
 
         bool gba_isMultiCard()
         {
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            gba_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
 
             int i = comboBox_gbaMultiCartSelect.SelectedIndex;
 
@@ -189,14 +197,18 @@ namespace ChisFlashBurner
                 printLog("S29GL01");
             else if (id.SequenceEqual(new byte[] { 0x01, 0x00, 0x7e, 0x22, 0x48, 0x22, 0x01, 0x22 }))
                 printLog("S70GL02");
+            else if (id.SequenceEqual(new byte[] { 0xC2, 0x00, 0x7E, 0x22, 0x22, 0x22, 0x01, 0x22 }))
+                printLog("MX29GL256");
+            else if (id.SequenceEqual(new byte[] { 0x20, 0x00, 0x7E, 0x22, 0x22, 0x22, 0x01, 0x22 }))
+                printLog("M29W256G");
             else
                 printLog("ID暂未收录，可能无法写入");
 
             // cfi
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            gba_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
 
-            printLog(string.Format("容量:{0:d} 扇区数量:{1:d} 扇区大小:{2:d} BuffWr:{3:d}", deviceSize, secotrCount, sectorSize, bufferWriteBytes));
+            printLog(string.Format("容量:{0:d} 扇区数量:{1:d} 扇区大小:{2:d} BuffWr:{3:d}", deviceSize, sectorCount, sectorSize, bufferWriteBytes));
 
             // 合卡信息
             if (deviceSize > 32 * 1024 * 1024)
@@ -337,12 +349,12 @@ namespace ChisFlashBurner
 
             if (fileLength % 2 != 0)
             {
-                rom[romBufSize - 1] = 0xff;
+                rom[romBufSize - 1] = 0;
             }
 
             // 获取rom flash buffer大小
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            gba_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
 
             bool isMultiCard = gba_isMultiCard();
 
@@ -452,8 +464,8 @@ namespace ChisFlashBurner
             byte[] rom = new byte[fileLength];
 
             // 获取rom flash buffer大小
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            gba_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
 
             bool isMultiCard = gba_isMultiCard();
 
@@ -555,14 +567,14 @@ namespace ChisFlashBurner
             file.Read(rom, 0, fileLength);
             file.Close();
 
-            if(fileLength% 2 != 0)
+            if (fileLength % 2 != 0)
             {
-                rom[romBufSize - 1] = 0xff; // 补齐为偶数
+                rom[romBufSize - 1] = 0; // 补齐为偶数
             }
 
             // 获取rom flash buffer大小
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            gba_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
 
             bool isMultiCard = gba_isMultiCard();
 
@@ -733,7 +745,9 @@ namespace ChisFlashBurner
                 // 发送
                 if (comboBox_ramType.Text == "FLASH")
                     ram_flashProgram(baseAddr, sendPack);
-                else
+                else if (comboBox_ramType.Text == "FRAM")
+                    ram_write_forFram(baseAddr, sendPack, 25);
+                else // SRAM
                     ram_write(baseAddr, sendPack);
 
 
@@ -800,7 +814,11 @@ namespace ChisFlashBurner
 
                 // 读取
                 byte[] respon = new byte[readLen];
-                ram_read((UInt32)baseAddr, ref respon);
+
+                if (comboBox_ramType.Text == "FRAM")
+                    ram_read_forFram((UInt32)baseAddr, ref respon, 25);
+                else
+                    ram_read((UInt32)baseAddr, ref respon);
 
                 Array.Copy(respon, 0, sav, readCount, readLen);
                 readCount += readLen;
@@ -875,7 +893,11 @@ namespace ChisFlashBurner
 
                 // 读取
                 byte[] respon = new byte[readLen];
-                ram_read((UInt32)baseAddr, ref respon);
+
+                if (comboBox_ramType.Text == "FRAM")
+                    ram_read_forFram((UInt32)baseAddr, ref respon, 25);
+                else
+                    ram_read((UInt32)baseAddr, ref respon);
 
                 for (int i = 0; i < readLen; i++)
                 {
@@ -904,5 +926,368 @@ namespace ChisFlashBurner
             printScore(fileLength, stopwatch.ElapsedMilliseconds);
         }
 
+
+
+        ////////////////////////////////////////////////////////////
+        /// 免电
+        /// 
+
+        bool gba_searchBatteryless(UInt32 baseAddress, out int offset, out int size)
+        {
+            offset = 0; // batteryless SRAM数据的位置
+            size = 0;
+
+
+            // 获取rom flash buffer大小
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            bool isMultiCard = gba_isMultiCard();
+
+
+
+
+            if (isMultiCard)
+                gba_romSwitchBank_byAddr((int)baseAddress);
+            byte[] boot = new byte[4];
+            rom_read(baseAddress, ref boot);
+
+            UInt32 boot_vector = BitConverter.ToUInt32(boot, 0);
+            boot_vector = ((boot_vector & 0x00FFFFFF) + 2) << 2;
+
+            byte[] targetBuf = Encoding.ASCII.GetBytes("<3 from Maniac");
+            byte[] searchBuf = new byte[0x2000];
+
+
+            if (isMultiCard)
+                gba_romSwitchBank_byAddr((int)(baseAddress + boot_vector));
+            byte[] temp = new byte[4096]; // 分开读，mcu内存没这么大
+            rom_read(baseAddress + boot_vector, ref temp);
+            Array.Copy(temp, 0, searchBuf, 0, 4096);
+            rom_read(baseAddress + boot_vector + 4096, ref temp);
+            Array.Copy(temp, 0, searchBuf, 4096, 4096);
+
+            bool found = false;
+            for (int i = 0; i < searchBuf.Length; i++)
+            {
+                found = true;
+                for (int ii = 0; ii < targetBuf.Length; ii++)
+                {
+                    if (searchBuf[i + ii] != targetBuf[ii])
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found)
+                {
+                    int payload_size = BitConverter.ToUInt16(searchBuf, i + 0x0e);
+                    if (payload_size == 0)
+                        payload_size = 0x414;
+
+                    offset = (int)(baseAddress + boot_vector + i + 0x10); // <3 from Maniac后面是payload的大小和数据
+
+                    int payload_start = offset - payload_size;
+
+                    if (isMultiCard)
+                        gba_romSwitchBank_byAddr(payload_start);
+                    rom_read((UInt32)payload_start, ref temp);
+
+                    size = (int)BitConverter.ToUInt32(temp, 8);
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        void mission_writeSave_batteryless()
+        {
+            // 打开文件
+            string savFilePath = textBox_savePath.Text;
+
+            FileStream file;
+            try
+            {
+                file = new FileStream(savFilePath, FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                printLog("文件被占用");
+                port.Close();
+                enableButton();
+                return;
+            }
+
+            int fileLength = (int)file.Length;
+
+            byte[] sav = new byte[fileLength];
+            file.Read(sav, 0, fileLength);
+            file.Close();
+
+
+            // 获取rom flash buffer大小
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+
+            bool isMultiCard = gba_isMultiCard();
+            int baseAddress = gba_multiCardBaseAddr();
+
+            if (isMultiCard)
+                gba_romSwitchBank_byAddr(baseAddress);
+
+
+
+            // 找呀找呀找存档
+            int sav_offset, sav_size;
+            bool found = gba_searchBatteryless((UInt32)baseAddress, out sav_offset, out sav_size);
+
+            if (!found)
+            {
+                printLog("找不到免电存档");
+                port.Close();
+                enableButton();
+                return;
+            }
+
+            if (sav_size > fileLength)
+                sav_size = fileLength;
+            printLog(string.Format("Offset:{0:x8} Size:{1:d}", sav_offset, sav_size));
+
+
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // 开始写入
+
+            printLog(string.Format("擦除存档 {0:x8} - {1:x8}", sav_offset, sav_offset + sav_size));
+            gba_romEraseSector(sav_offset, sav_offset + sav_size, sectorSize, isMultiCard);
+
+            int writtenCount = 0;
+            while (writtenCount < sav_size)
+            {
+
+                // 分包
+                int sentLen = sav_size - writtenCount;
+                sentLen = sentLen > 4096 ? 4096 : sentLen;
+
+                int addr = baseAddress + sav_offset + writtenCount;
+
+                if (isMultiCard)
+                    gba_romSwitchBank_byAddr(addr);
+
+                byte[] sendPack = new byte[sentLen];
+                Array.Copy(sav, writtenCount, sendPack, 0, sentLen);
+
+                // 发送
+                rom_program((UInt32)addr, sendPack, (UInt16)bufferWriteBytes);
+
+                writtenCount += sentLen;
+                showProgress(writtenCount, sav_size);
+
+            }
+            stopwatch.Stop();
+
+
+            port.Close();
+            enableButton();
+            printScore(sav_size, stopwatch.ElapsedMilliseconds);
+        }
+
+
+
+        void mission_dumpSave_batteryless()
+        {
+            // 打开文件
+            string romFilePath = textBox_savePath.Text;
+            FileStream file;
+            try
+            {
+                file = new FileStream(romFilePath, FileMode.Create, FileAccess.Write);
+            }
+            catch
+            {
+                printLog("文件被占用");
+                port.Close();
+                enableButton();
+                return;
+            }
+
+
+            // 获取rom flash buffer大小
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+
+            bool isMultiCard = gba_isMultiCard();
+            int baseAddress = gba_multiCardBaseAddr();
+
+            if (isMultiCard)
+                gba_romSwitchBank_byAddr(baseAddress);
+
+
+
+            // 找呀找呀找存档
+            int sav_offset, sav_size;
+            bool found = gba_searchBatteryless((UInt32)baseAddress, out sav_offset, out sav_size);
+
+            if (!found)
+            {
+                printLog("找不到免电存档");
+                file.Close();
+                port.Close();
+                enableButton();
+                return;
+            }
+            printLog(string.Format("Offset:{0:x8} Size:{1:d}", sav_offset, sav_size));
+
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+
+            // 导出存档
+            byte[] sav = new byte[sav_size];
+
+            int readCount = 0;
+            while (readCount < sav_size)
+            {
+                // 分包
+                int readLen = sav_size - readCount;
+                readLen = readLen > 4096 ? 4096 : readLen;
+
+                int addr = baseAddress + sav_offset + readCount;
+
+                if (isMultiCard)
+                    gba_romSwitchBank_byAddr(addr);
+
+                // 读取
+                byte[] respon = new byte[readLen];
+
+                rom_read((UInt32)addr, ref respon);
+
+                Array.Copy(respon, 0, sav, readCount, readLen);
+                readCount += readLen;
+                showProgress(readCount, sav_size);
+            }
+            stopwatch.Stop();
+
+
+            // 保存
+            file.Write(sav, 0, sav_size);
+            file.Close();
+
+
+            port.Close();
+            enableButton();
+            printScore(sav_size, stopwatch.ElapsedMilliseconds);
+        }
+
+
+        void mission_verifySave_batteryless()
+        {
+            // 打开文件
+            string savFilePath = textBox_savePath.Text;
+
+            FileStream file;
+            try
+            {
+                file = new FileStream(savFilePath, FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                printLog("文件被占用");
+                port.Close();
+                enableButton();
+                return;
+            }
+
+            int fileLength = (int)file.Length;
+
+            byte[] sav = new byte[fileLength];
+            file.Read(sav, 0, fileLength);
+            file.Close();
+
+
+            // 获取rom flash buffer大小
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+
+            bool isMultiCard = gba_isMultiCard();
+            int baseAddress = gba_multiCardBaseAddr();
+
+            if (isMultiCard)
+                gba_romSwitchBank_byAddr(baseAddress);
+
+
+
+            // 找呀找呀找存档
+            int sav_offset, sav_size;
+            bool found = gba_searchBatteryless((UInt32)baseAddress, out sav_offset, out sav_size);
+
+            if (!found)
+            {
+                printLog("找不到免电存档");
+                file.Close();
+                port.Close();
+                enableButton();
+                return;
+            }
+
+            if (sav_size > fileLength)
+                sav_size = fileLength;
+            printLog(string.Format("Offset:{0:x8} Size:{1:d}", sav_offset, sav_size));
+
+
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+
+            // 导出存档
+
+            int readCount = 0;
+            while (readCount < sav_size)
+            {
+                // 分包
+                int readLen = sav_size - readCount;
+                readLen = readLen > 4096 ? 4096 : readLen;
+
+                int addr = baseAddress + sav_offset + readCount;
+
+                // 读取
+                byte[] respon = new byte[readLen];
+
+                if (isMultiCard)
+                    gba_romSwitchBank_byAddr(addr);
+                rom_read((UInt32)addr, ref respon);
+
+
+                // 对比
+                for(int i=0; i<readLen; i++)
+                {
+                    if (sav[readCount + i] != respon[i])
+                    {
+                        printLog(string.Format(
+                            "0x{0:x8}校验失败，{1:x2} -> {2:x2}",
+                            readCount + i,
+                            sav[readCount + i],
+                            respon[i]
+                        ));
+                    }
+                }
+
+                readCount += readLen;
+                showProgress(readCount, sav_size);
+            }
+            stopwatch.Stop();
+
+
+            port.Close();
+            enableButton();
+            printScore(sav_size, stopwatch.ElapsedMilliseconds);
+
+        }
     }
 }

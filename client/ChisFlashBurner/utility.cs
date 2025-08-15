@@ -100,6 +100,13 @@ namespace ChisFlashBurner
             btn_readSave_mbc5.Enabled = false;
             btn_verifySave_mbc5.Enabled = false;
 
+            btn_unlockPPB_gba.Enabled = false;
+            btn_unlockPPB_mbc5.Enabled = false;
+            btn_setRTC_gba.Enabled = false;
+            btn_setRTC_mbc.Enabled = false;
+            btn_rumbleTest_gba.Enabled = false;
+            btn_cancel.Enabled = true;
+
             if (abortable)
             {
                 btn_eraseChip.Text = "取消";
@@ -130,6 +137,13 @@ namespace ChisFlashBurner
             btn_writeSave_mbc5.Enabled = true;
             btn_readSave_mbc5.Enabled = true;
             btn_verifySave_mbc5.Enabled = true;
+
+            btn_unlockPPB_gba.Enabled = true;
+            btn_unlockPPB_mbc5.Enabled = true;
+            btn_setRTC_gba.Enabled = true;
+            btn_setRTC_mbc.Enabled = true;
+            btn_rumbleTest_gba.Enabled = true;
+            btn_cancel.Enabled = false;
 
             btn_eraseChip.Enabled = true;
             btn_eraseChip.Text = "全片擦除";
@@ -168,7 +182,7 @@ namespace ChisFlashBurner
 
         public bool isBlank(byte[] bytes)
         {
-            foreach(byte b in bytes)
+            foreach (byte b in bytes)
             {
                 if (b != 0xFF)
                     return false;

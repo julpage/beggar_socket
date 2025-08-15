@@ -3,3 +3,4 @@
 *.log
 *.zip
 client/.vs/
+mcu/.metadata/

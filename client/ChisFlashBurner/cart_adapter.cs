@@ -287,12 +287,53 @@ namespace ChisFlashBurner
             return valid;
         }
 
+
+        bool ram_write_forFram(UInt32 addr, byte[] bytes, byte latency)
+        {
+            byte[] baseAddress = BitConverter.GetBytes(addr);
+            int sentLen = bytes.Length;
+
+            byte[] pack = new byte[1 + 4 + 1 + sentLen];
+
+            pack[0] = 0xe7;
+            Array.Copy(baseAddress, 0, pack, 1, 4);
+            pack[5] = latency;
+            Array.Copy(bytes, 0, pack, 6, sentLen);
+
+            //发送
+            sendPackage(pack);
+
+            // 等待响应
+            bool valid = getRespon();
+            return valid;
+        }
+
+        bool ram_read_forFram(UInt32 addr, ref byte[] bytes, byte latency)
+        {
+            byte[] baseAddress = BitConverter.GetBytes(addr);
+            byte[] readlen = BitConverter.GetBytes((UInt16)(bytes.Length));
+
+            byte[] pack = new byte[1 + 4 + 1 + 2];
+
+            pack[0] = 0xe8;
+            Array.Copy(baseAddress, 0, pack, 1, 4);
+            Array.Copy(readlen, 0, pack, 5, 2);
+            pack[7] = latency;
+
+            // 发送
+            sendPackage(pack);
+            // 等待响应
+            bool valid = getRespon(ref bytes);
+            return valid;
+        }
+
+
         ////////////////////////////////////////////////////////////
         /// 下面是gbc的功能
 
-        bool gbcCart_write(UInt32 wordAddr, byte[] bytes)
+        bool gbcCart_write(UInt32 addr, byte[] bytes)
         {
-            byte[] baseAddress = BitConverter.GetBytes(wordAddr);
+            byte[] baseAddress = BitConverter.GetBytes(addr);
             int sentLen = bytes.Length;
 
             byte[] pack = new byte[1 + 4 + sentLen];
@@ -330,9 +371,9 @@ namespace ChisFlashBurner
             return valid;
         }
 
-        bool gbcCart_romProgram(UInt32 wordAddr, byte[] bytes, UInt16 bufferWriteBytes)
+        bool gbcCart_romProgram(UInt32 addr, byte[] bytes, UInt16 bufferWriteBytes)
         {
-            byte[] baseAddress = BitConverter.GetBytes(wordAddr);
+            byte[] baseAddress = BitConverter.GetBytes(addr);
             byte[] buffWr = BitConverter.GetBytes(bufferWriteBytes);
             int sentLen = bytes.Length;
 
@@ -351,6 +392,47 @@ namespace ChisFlashBurner
 
             return ack;
         }
+
+        bool gbcCart_write_forFram(UInt32 addr, byte[] bytes, byte latency)
+        {
+            byte[] baseAddress = BitConverter.GetBytes(addr);
+            int sentLen = bytes.Length;
+
+            byte[] pack = new byte[1 + 4 + 1 + sentLen];
+
+            pack[0] = 0xea;
+            Array.Copy(baseAddress, 0, pack, 1, 4);
+            pack[5] = latency;
+            Array.Copy(bytes, 0, pack, 6, sentLen);
+
+            //发送
+            sendPackage(pack);
+
+            // 等待响应
+            bool valid = getRespon();
+            return valid;
+        }
+
+        bool gbcCart_read_forFram(uint addr, ref byte[] bytes, byte latency)
+        {
+            byte[] baseAddress = BitConverter.GetBytes(addr);
+            byte[] readlen = BitConverter.GetBytes((UInt16)(bytes.Length));
+
+            byte[] pack = new byte[1 + 4 + 1 + 2];
+
+            pack[0] = 0xeb;
+            Array.Copy(baseAddress, 0, pack, 1, 4);
+            Array.Copy(readlen, 0, pack, 5, 2);
+            pack[7] = latency;
+
+            // 发送
+            sendPackage(pack);
+
+            // 等待响应
+            bool valid = getRespon(ref bytes);
+            return valid;
+        }
+
 
     }
 }

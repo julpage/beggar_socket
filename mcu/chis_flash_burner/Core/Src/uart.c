@@ -15,8 +15,10 @@
 #define SIZE_CMD_HEADER 3
 #define SIZE_RESPON_HEADER 2
 #define SIZE_BASE_ADDRESS 4
+#define SIZE_BYTE_COUNT 2
 #define SIZE_CRC 2
 #define SIZE_BUFF_SIZE 2
+#define SIZE_LATENCY 1
 
 // 命令头
 typedef struct __attribute__((packed))
@@ -71,10 +73,14 @@ void romRead();
 void ramWrite();
 void ramRead();
 void ramProgramFlash();
+void ramWrite_forFram();
+void ramRead_forFram();
 
 void gbcWrite();
 void gbcRead();
 void gbcRomProgram();
+void gbcWrite_forFram();
+void gbcRead_forFram();
 
 uint16_t modbusCRC16(uint8_t *buf, uint16_t len)
 {
@@ -230,6 +236,14 @@ void uart_cmdHandler()
                 ramProgramFlash();
                 break;
 
+            case 0xe7: // ram 带延迟写入
+                ramWrite_forFram();
+                break;
+
+            case 0xe8: // ram 带延迟读取
+                ramRead_forFram();
+                break;
+
             case 0xfa: // gbc 写入透传
                 gbcWrite();
                 break;
@@ -238,8 +252,16 @@ void uart_cmdHandler()
                 gbcRead();
                 break;
 
-            case 0xfc:
-                gbcRomProgram(); // gbc rom编程
+            case 0xfc: // gbc rom编程
+                gbcRomProgram();
+                break;
+
+            case 0xea: // gbc 带延迟写入
+                gbcWrite_forFram();
+                break;
+
+            case 0xeb: // gbc 带延迟读取
+                gbcRead_forFram();
                 break;
 
             default:
@@ -622,6 +644,58 @@ void ramProgramFlash()
     uart_responAck();
 }
 
+void ramWrite_forFram()
+{
+    Desc_cmdBody_write_t *desc_write = (Desc_cmdBody_write_t *)(uart_cmd->payload);
+
+    // 基地址
+    uint32_t baseAddress = desc_write->baseAddress & 0xffff;
+    // 写入总数量
+    uint16_t byteCount = uart_cmd->cmdSize - SIZE_CMD_HEADER - SIZE_BASE_ADDRESS - SIZE_CRC - SIZE_LATENCY;
+    // 延迟周期
+    uint8_t latency = desc_write->payload[0];
+    // 数据
+    uint8_t *dataBuf = desc_write->payload + SIZE_LATENCY;
+
+    for (int i = 0; i < byteCount; i++)
+    {
+        cart_ramWrite((uint16_t)(baseAddress + i), dataBuf + i, 1); // 逐个字节写
+
+        for (int ii = 0; ii < latency; ii++)
+            __NOP();
+    }
+
+    // 回复ack
+    uart_clearRecvBuf();
+    uart_responAck();
+}
+
+void ramRead_forFram()
+{
+    Desc_cmdBody_read_t *desc_read = (Desc_cmdBody_read_t *)(uart_cmd->payload);
+
+    // 基地址
+    uint32_t baseAddress = desc_read->baseAddress;
+    // 读取总数量
+    uint16_t byteCount = desc_read->readSize;
+    // 延迟周期
+    uint8_t latency = uart_cmd->payload[SIZE_BASE_ADDRESS + SIZE_BYTE_COUNT];
+    // 数据
+    uint8_t *dataBuf = uart_respon->payload;
+
+    for (int i = 0; i < byteCount; i++)
+    {
+        cart_ramRead((uint16_t)(baseAddress + i), dataBuf + i, 1); // 逐个字节读
+
+        for (int ii = 0; ii < latency; ii++)
+            __NOP();
+    }
+
+    // 返回数据
+    uart_clearRecvBuf();
+    uart_responData(NULL, byteCount);
+}
+
 ////////////////////////////////////////////////////////////
 /// 下面是gbc的功能
 ////////////////////////////////////////////////////////////
@@ -752,4 +826,56 @@ void gbcRomProgram()
     // 回复ack
     uart_clearRecvBuf();
     uart_responAck();
+}
+
+void gbcWrite_forFram()
+{
+    Desc_cmdBody_write_t *desc_write = (Desc_cmdBody_write_t *)(uart_cmd->payload);
+
+    // 基地址
+    uint32_t baseAddress = desc_write->baseAddress & 0xffff;
+    // 写入总数量
+    uint16_t byteCount = uart_cmd->cmdSize - SIZE_CMD_HEADER - SIZE_BASE_ADDRESS - SIZE_CRC;
+    // 延迟周期
+    uint8_t latency = desc_write->payload[0];
+    // 数据
+    uint8_t *dataBuf = desc_write->payload + SIZE_LATENCY;
+
+    for (int i = 0; i < byteCount; i++)
+    {
+        cart_gbcWrite((uint16_t)(baseAddress + i), dataBuf + i, 1); // 逐个字节写
+
+        for (int ii = 0; ii < latency; ii++)
+            __NOP();
+    }
+
+    // 回复ack
+    uart_clearRecvBuf();
+    uart_responAck();
+}
+
+void gbcRead_forFram()
+{
+    Desc_cmdBody_read_t *desc_read = (Desc_cmdBody_read_t *)(uart_cmd->payload);
+
+    // 基地址
+    uint32_t baseAddress = desc_read->baseAddress;
+    // 读取总数量
+    uint16_t byteCount = desc_read->readSize;
+    // 延迟周期
+    uint8_t latency = uart_cmd->payload[SIZE_BASE_ADDRESS + SIZE_BYTE_COUNT];
+    // 数据
+    uint8_t *dataBuf = uart_respon->payload;
+
+    for (int i = 0; i < byteCount; i++)
+    {
+        cart_gbcRead((uint16_t)(baseAddress + i), dataBuf + i, 1); // 逐个字节读
+
+        for (int ii = 0; ii < latency; ii++)
+            __NOP();
+    }
+
+    // 返回数据
+    uart_clearRecvBuf();
+    uart_responData(NULL, byteCount);
 }

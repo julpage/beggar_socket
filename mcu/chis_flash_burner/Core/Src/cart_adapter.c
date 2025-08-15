@@ -152,7 +152,7 @@ void cart_ramWrite(uint16_t addr, uint8_t *buf, uint16_t len)
         cart_writeBus_a(*buf);
 
         wr_GPIO_Port->BSRR = wr_Pin << 16;
-        // address hold 70ns, data setup 20ns, write cycle 105ns
+        //  address hold 70ns, data setup 20ns, write cycle 105ns
         wr_GPIO_Port->BSRR = wr_Pin;
 
         addr++;
@@ -192,18 +192,17 @@ void cart_gbcRead(uint16_t addr, uint8_t *buf, uint16_t len)
         buf++;
     }
 
-    // release bus
     cs1_GPIO_Port->BSRR = cs1_Pin; // cs1=1 126ns
+
     cart_setDirection_ad(0);
 }
 
 void cart_gbcWrite(uint16_t addr, uint8_t *buf, uint16_t len)
 {
-
     cart_setDirection_a(1);
     cart_setDirection_ad(1);
 
-    cs1_GPIO_Port->BSRR = cs1_Pin << 16; // cs2=0 126ns
+    cs1_GPIO_Port->BSRR = cs1_Pin << 16;
 
     // write bus
     for (int i = 0; i < len; i++)
@@ -212,15 +211,14 @@ void cart_gbcWrite(uint16_t addr, uint8_t *buf, uint16_t len)
         cart_writeBus_a(*buf);
 
         wr_GPIO_Port->BSRR = wr_Pin << 16;
-        // address hold 70ns, data setup 20ns, write cycle 105ns
         wr_GPIO_Port->BSRR = wr_Pin;
 
         addr++;
         buf++;
     }
 
-    // release bus
     cs1_GPIO_Port->BSRR = cs1_Pin;
+
     cart_setDirection_a(0);
     cart_setDirection_ad(0);
 }

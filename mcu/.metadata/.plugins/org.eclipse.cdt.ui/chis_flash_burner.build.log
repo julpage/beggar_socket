@@ -1,10 +1,23 @@
-02:40:43 **** Incremental Build of configuration Debug for project chis_flash_burner ****
+22:01:35 **** Incremental Build of configuration Debug for project chis_flash_burner ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/cart_adapter.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../USB_DEVICE/App -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/cart_adapter.d" -MT"Core/Src/cart_adapter.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/cart_adapter.o"
+arm-none-eabi-gcc -o "chis_flash_burner.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\disk\Self-study\STM32\f103\chis_flash_burner\chis_flash_burner\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="chis_flash_burner.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: chis_flash_burner.elf
+ 
 arm-none-eabi-size  chis_flash_burner.elf 
+arm-none-eabi-objdump -h -S chis_flash_burner.elf  > "chis_flash_burner.list"
    text	   data	    bss	    dec	    hex	filename
-  34284	    388	  17124	  51796	   ca54	chis_flash_burner.elf
+  34920	    388	  17124	  52432	   ccd0	chis_flash_burner.elf
+arm-none-eabi-objcopy  -O ihex chis_flash_burner.elf  "chis_flash_burner.hex"
 Finished building: default.size.stdout
+arm-none-eabi-objcopy  -O binary chis_flash_burner.elf  "chis_flash_burner.bin"
+ 
+Finished building: chis_flash_burner.hex
+ 
+Finished building: chis_flash_burner.bin
+Finished building: chis_flash_burner.list
+ 
  
 
-02:40:44 Build Finished. 0 errors, 0 warnings. (took 329ms)
+22:01:36 Build Finished. 0 errors, 0 warnings. (took 916ms)
 

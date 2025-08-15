@@ -61,6 +61,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.comboBox_gbaMultiCartSelect = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.comboBox_mbc5RamType = new System.Windows.Forms.ComboBox();
             this.btn_eraseChip_mbc5 = new System.Windows.Forms.Button();
             this.comboBox_mbc5MultiCartSelect = new System.Windows.Forms.ComboBox();
             this.btn_verifyRom_mbc5 = new System.Windows.Forms.Button();
@@ -73,10 +74,20 @@
             this.btn_readSave_mbc5 = new System.Windows.Forms.Button();
             this.btn_writeRom_mbc5 = new System.Windows.Forms.Button();
             this.btn_writeSave_mbc5 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btn_cancel = new System.Windows.Forms.Button();
+            this.btn_rumbleTest_gba = new System.Windows.Forms.Button();
+            this.btn_setRTC_mbc = new System.Windows.Forms.Button();
+            this.btn_setRTC_gba = new System.Windows.Forms.Button();
+            this.btn_unlockPPB_mbc5 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btn_unlockPPB_gba = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_browseRom
@@ -361,7 +372,9 @@
             this.comboBox_ramType.FormattingEnabled = true;
             this.comboBox_ramType.Items.AddRange(new object[] {
             "FLASH",
-            "SRAM"});
+            "SRAM",
+            "FRAM",
+            "免电"});
             this.comboBox_ramType.Location = new System.Drawing.Point(159, 42);
             this.comboBox_ramType.Name = "comboBox_ramType";
             this.comboBox_ramType.Size = new System.Drawing.Size(77, 20);
@@ -373,6 +386,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 68);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -545,6 +559,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.comboBox_mbc5RamType);
             this.tabPage2.Controls.Add(this.btn_eraseChip_mbc5);
             this.tabPage2.Controls.Add(this.comboBox_mbc5MultiCartSelect);
             this.tabPage2.Controls.Add(this.btn_verifyRom_mbc5);
@@ -564,6 +579,20 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MBC5";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // comboBox_mbc5RamType
+            // 
+            this.comboBox_mbc5RamType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_mbc5RamType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_mbc5RamType.DropDownWidth = 100;
+            this.comboBox_mbc5RamType.FormattingEnabled = true;
+            this.comboBox_mbc5RamType.Items.AddRange(new object[] {
+            "SRAM",
+            "FRAM"});
+            this.comboBox_mbc5RamType.Location = new System.Drawing.Point(159, 42);
+            this.comboBox_mbc5RamType.Name = "comboBox_mbc5RamType";
+            this.comboBox_mbc5RamType.Size = new System.Drawing.Size(77, 20);
+            this.comboBox_mbc5RamType.TabIndex = 40;
             // 
             // btn_eraseChip_mbc5
             // 
@@ -601,9 +630,9 @@
             "14/16 (max)",
             "15/16 (max)",
             "16/16 (max)"});
-            this.comboBox_mbc5MultiCartSelect.Location = new System.Drawing.Point(163, 13);
+            this.comboBox_mbc5MultiCartSelect.Location = new System.Drawing.Point(159, 13);
             this.comboBox_mbc5MultiCartSelect.Name = "comboBox_mbc5MultiCartSelect";
-            this.comboBox_mbc5MultiCartSelect.Size = new System.Drawing.Size(73, 20);
+            this.comboBox_mbc5MultiCartSelect.Size = new System.Drawing.Size(77, 20);
             this.comboBox_mbc5MultiCartSelect.TabIndex = 39;
             this.comboBox_mbc5MultiCartSelect.SelectedIndexChanged += new System.EventHandler(this.comboBox_mbc5MultiCartSelect_SelectedIndexChanged);
             // 
@@ -643,7 +672,7 @@
             "512"});
             this.comboBox_saveSize_mbc5.Location = new System.Drawing.Point(89, 42);
             this.comboBox_saveSize_mbc5.Name = "comboBox_saveSize_mbc5";
-            this.comboBox_saveSize_mbc5.Size = new System.Drawing.Size(147, 20);
+            this.comboBox_saveSize_mbc5.Size = new System.Drawing.Size(64, 20);
             this.comboBox_saveSize_mbc5.TabIndex = 37;
             // 
             // comboBox_romSize_mbc5
@@ -658,7 +687,7 @@
             "32.0"});
             this.comboBox_romSize_mbc5.Location = new System.Drawing.Point(89, 13);
             this.comboBox_romSize_mbc5.Name = "comboBox_romSize_mbc5";
-            this.comboBox_romSize_mbc5.Size = new System.Drawing.Size(68, 20);
+            this.comboBox_romSize_mbc5.Size = new System.Drawing.Size(64, 20);
             this.comboBox_romSize_mbc5.TabIndex = 38;
             // 
             // label1
@@ -723,6 +752,104 @@
             this.btn_writeSave_mbc5.UseVisualStyleBackColor = true;
             this.btn_writeSave_mbc5.Click += new System.EventHandler(this.btn_writeSave_mbc5_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.btn_cancel);
+            this.tabPage3.Controls.Add(this.btn_rumbleTest_gba);
+            this.tabPage3.Controls.Add(this.btn_setRTC_mbc);
+            this.tabPage3.Controls.Add(this.btn_setRTC_gba);
+            this.tabPage3.Controls.Add(this.btn_unlockPPB_mbc5);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.btn_unlockPPB_gba);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(566, 72);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "工具";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btn_cancel
+            // 
+            this.btn_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_cancel.Enabled = false;
+            this.btn_cancel.Location = new System.Drawing.Point(485, 11);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(75, 52);
+            this.btn_cancel.TabIndex = 16;
+            this.btn_cancel.Text = "取消";
+            this.btn_cancel.UseVisualStyleBackColor = true;
+            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
+            // 
+            // btn_rumbleTest_gba
+            // 
+            this.btn_rumbleTest_gba.Location = new System.Drawing.Point(208, 8);
+            this.btn_rumbleTest_gba.Name = "btn_rumbleTest_gba";
+            this.btn_rumbleTest_gba.Size = new System.Drawing.Size(75, 23);
+            this.btn_rumbleTest_gba.TabIndex = 8;
+            this.btn_rumbleTest_gba.Text = "震动测试";
+            this.btn_rumbleTest_gba.UseVisualStyleBackColor = true;
+            this.btn_rumbleTest_gba.Click += new System.EventHandler(this.btn_rumbleTest_gba_Click);
+            // 
+            // btn_setRTC_mbc
+            // 
+            this.btn_setRTC_mbc.Location = new System.Drawing.Point(127, 42);
+            this.btn_setRTC_mbc.Name = "btn_setRTC_mbc";
+            this.btn_setRTC_mbc.Size = new System.Drawing.Size(75, 23);
+            this.btn_setRTC_mbc.TabIndex = 7;
+            this.btn_setRTC_mbc.Text = "修改时钟";
+            this.btn_setRTC_mbc.UseVisualStyleBackColor = true;
+            this.btn_setRTC_mbc.Click += new System.EventHandler(this.btn_setRTC_mbc_Click);
+            // 
+            // btn_setRTC_gba
+            // 
+            this.btn_setRTC_gba.Location = new System.Drawing.Point(127, 8);
+            this.btn_setRTC_gba.Name = "btn_setRTC_gba";
+            this.btn_setRTC_gba.Size = new System.Drawing.Size(75, 23);
+            this.btn_setRTC_gba.TabIndex = 6;
+            this.btn_setRTC_gba.Text = "修改时钟";
+            this.btn_setRTC_gba.UseVisualStyleBackColor = true;
+            this.btn_setRTC_gba.Click += new System.EventHandler(this.btn_setRTC_gba_Click);
+            // 
+            // btn_unlockPPB_mbc5
+            // 
+            this.btn_unlockPPB_mbc5.Location = new System.Drawing.Point(46, 42);
+            this.btn_unlockPPB_mbc5.Name = "btn_unlockPPB_mbc5";
+            this.btn_unlockPPB_mbc5.Size = new System.Drawing.Size(75, 23);
+            this.btn_unlockPPB_mbc5.TabIndex = 5;
+            this.btn_unlockPPB_mbc5.Text = "解锁ppb";
+            this.btn_unlockPPB_mbc5.UseVisualStyleBackColor = true;
+            this.btn_unlockPPB_mbc5.Click += new System.EventHandler(this.btn_unlockPPB_mbc5_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 47);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(23, 12);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "MBC";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 13);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(23, 12);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "GBA";
+            // 
+            // btn_unlockPPB_gba
+            // 
+            this.btn_unlockPPB_gba.Location = new System.Drawing.Point(46, 8);
+            this.btn_unlockPPB_gba.Name = "btn_unlockPPB_gba";
+            this.btn_unlockPPB_gba.Size = new System.Drawing.Size(75, 23);
+            this.btn_unlockPPB_gba.TabIndex = 2;
+            this.btn_unlockPPB_gba.Text = "解锁ppb";
+            this.btn_unlockPPB_gba.UseVisualStyleBackColor = true;
+            this.btn_unlockPPB_gba.Click += new System.EventHandler(this.btn_unlockPPB_gba_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -754,6 +881,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -805,6 +934,16 @@
         private System.Windows.Forms.Button btn_writeRom_mbc5;
         private System.Windows.Forms.Button btn_writeSave_mbc5;
         private System.Windows.Forms.ComboBox comboBox_gbaMultiCartSelect;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button btn_unlockPPB_gba;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btn_rumbleTest_gba;
+        private System.Windows.Forms.Button btn_setRTC_mbc;
+        private System.Windows.Forms.Button btn_setRTC_gba;
+        private System.Windows.Forms.Button btn_unlockPPB_mbc5;
+        private System.Windows.Forms.ComboBox comboBox_mbc5RamType;
+        private System.Windows.Forms.Button btn_cancel;
     }
 }
 

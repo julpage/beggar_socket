@@ -141,21 +141,29 @@ namespace ChisFlashBurner
 
         byte[] mbc5_romGetID()
         {
-            byte[] id = new byte[4];
+
+            byte[] id0 = new byte[1];
+            byte[] id1 = new byte[1];
+            byte[] id2 = new byte[1];
+            byte[] id3 = new byte[1];
 
             // enter autoselect
             gbcCart_write(0xaaa, new byte[] { 0xaa });
             gbcCart_write(0x555, new byte[] { 0x55 });
             gbcCart_write(0xaaa, new byte[] { 0x90 });
             // read id
-            gbcCart_read(0, ref id);
+            gbcCart_read(0x00, ref id0);
+            gbcCart_read(0x02, ref id1);
+            gbcCart_read(0x1c, ref id2);
+            gbcCart_read(0x1e, ref id3);
             // reset
             gbcCart_write(0x00, new byte[] { 0xf0 });
 
+            byte[] id = { id0[0], id1[0], id2[0], id3[0] };
             return id;
         }
 
-        void mbc5_romGetSize(out int secotrCount, out int sectorSize, out int bufferWriteBytes, out int deviceSize)
+        void mbc5_romGetSize(out int sectorCount, out int sectorSize, out int bufferWriteBytes, out int deviceSize)
         {
             byte[] cfi = new byte[1];
             int temp;
@@ -180,7 +188,7 @@ namespace ChisFlashBurner
             temp = cfi[0] << 8;
             gbcCart_read(0x5a, ref cfi);
             temp |= cfi[0];
-            secotrCount = temp + 1;
+            sectorCount = temp + 1;
 
             gbcCart_read(0x60, ref cfi);
             temp = cfi[0] << 8;
@@ -192,7 +200,7 @@ namespace ChisFlashBurner
             //temp = cfi[0] << 8;
             //gbcCart_read(0x62, ref cfi);
             //temp |= cfi[0];
-            //secotrCount = temp + 1;
+            //sectorCount = temp + 1;
 
             //gbcCart_read(0x68, ref cfi);
             //temp = cfi[0] << 8;
@@ -214,19 +222,22 @@ namespace ChisFlashBurner
 
             printLog(BitConverter.ToString(id).Replace("-", " "));
 
-            if (id.SequenceEqual(new byte[] { 0xc2, 0xc2, 0xcb, 0xcb }))
+
+            if (id.Take(2).SequenceEqual(new byte[] { 0xc2, 0xcb }))
                 printLog("MX29LV640EB");
-            else if (id.SequenceEqual(new byte[] { 0xc2, 0xc2, 0xc9, 0xc9 }))
+            if (id.Take(2).SequenceEqual(new byte[] { 0xc2, 0xc9 }))
                 printLog("MX29LV640ET");
-            else if (id.SequenceEqual(new byte[] { 0x01, 0x01, 0x7e, 0x7e }))
+            else if (id.SequenceEqual(new byte[] { 0x01, 0x7e, 0x22, 0x01 }))
                 printLog("S29GL256N");
+            else if (id.SequenceEqual(new byte[] { 0x89, 0x7e, 0x22, 0x01 }))
+                printLog("JS28F256");
             else
                 printLog("ID暂未收录，可能无法写入");
 
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            mbc5_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            mbc5_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
 
-            printLog(string.Format("容量:{0:d} 扇区数量:{1:d} 扇区大小:{2:d} BuffWr:{3:d}", deviceSize, secotrCount, sectorSize, bufferWriteBytes));
+            printLog(string.Format("容量:{0:d} 扇区数量:{1:d} 扇区大小:{2:d} BuffWr:{3:d}", deviceSize, sectorCount, sectorSize, bufferWriteBytes));
 
             port.Close();
             enableButton();
@@ -280,8 +291,13 @@ namespace ChisFlashBurner
             file.Close();
 
             // 获取rom flash buffer大小
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            mbc5_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            mbc5_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+
+            // 获取id
+            byte[] id = mbc5_romGetID();
+            if (id.SequenceEqual(new byte[] { 0x89, 0x7e, 0x22, 0x01 })) // js28
+                bufferWriteBytes = 256;                                  // For a x8 device, maximum buffer size is 256 bytes;
 
             // 获取工作区间
             int addrBegin, addrEnd;
@@ -309,7 +325,6 @@ namespace ChisFlashBurner
             {
                 addrEnd = addrBegin + fileLength - 1;
             }
-
 
             // 自动擦除flash
             int bank = addrBegin >> 14;
@@ -409,8 +424,8 @@ namespace ChisFlashBurner
 
 
             // 获取rom flash buffer大小
-            int deviceSize, secotrCount, sectorSize, bufferWriteBytes;
-            mbc5_romGetSize(out secotrCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            mbc5_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
 
 
             // 获取工作区间
@@ -664,7 +679,10 @@ namespace ChisFlashBurner
                 cartAddress = 0xa000 + (ramAddress & 0x1fff);
 
                 // 写入
-                gbcCart_write((UInt32)cartAddress, sendPack);
+                if (comboBox_mbc5RamType.Text == "FRAM")
+                    gbcCart_write_forFram((UInt32)cartAddress, sendPack, 10);
+                else
+                    gbcCart_write((UInt32)cartAddress, sendPack);
 
                 writtenCount += sentLen;
                 showProgress(writtenCount, fileLength);
@@ -744,7 +762,11 @@ namespace ChisFlashBurner
 
                 // 读取
                 byte[] respon = new byte[readLen];
-                gbcCart_read((UInt32)cartAddress, ref respon);
+
+                if (comboBox_mbc5RamType.Text == "FRAM")
+                    gbcCart_read_forFram((UInt32)cartAddress, ref respon, 10);
+                else
+                    gbcCart_read((UInt32)cartAddress, ref respon);
 
                 Array.Copy(respon, 0, sav, readCount, readLen);
 
@@ -835,7 +857,11 @@ namespace ChisFlashBurner
 
                 // 读取
                 byte[] respon = new byte[readLen];
-                gbcCart_read((UInt32)cartAddress, ref respon);
+
+                if (comboBox_mbc5RamType.Text == "FRAM")
+                    gbcCart_read_forFram((UInt32)cartAddress, ref respon, 10);
+                else
+                    gbcCart_read((UInt32)cartAddress, ref respon);
 
                 // 对比
                 for (int i = 0; i < readLen; i++)

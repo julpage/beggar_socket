@@ -133,15 +133,17 @@ namespace ChisFlashBurner
         // 读取ID
         private void btn_readID_Click(object sender, EventArgs e)
         {
-            if (!openPort())
-                return;
-
-            disableButton(true);
-
             if (tabControl1.SelectedTab.Text == "GBA")
                 thread = new Thread(new ThreadStart(mission_readRomID));
             else if (tabControl1.SelectedTab.Text == "MBC5")
                 thread = new Thread(new ThreadStart(mission_readRomID_mbc5));
+            else
+                return;
+
+            if (!openPort())
+                return;
+
+            disableButton(true);
 
             thread.Start();
         }
@@ -264,7 +266,11 @@ namespace ChisFlashBurner
 
             disableButton(true);
 
-            thread = new Thread(new ThreadStart(mission_wrtieSram));
+            if (comboBox_ramType.Text == "免电")
+                thread = new Thread(new ThreadStart(mission_writeSave_batteryless));
+            else
+                thread = new Thread(new ThreadStart(mission_wrtieSram));
+
 
             thread.Start();
         }
@@ -295,7 +301,10 @@ namespace ChisFlashBurner
 
             disableButton(true);
 
-            thread = new Thread(new ThreadStart(mission_dumpRam));
+            if (comboBox_ramType.Text == "免电")
+                thread = new Thread(new ThreadStart(mission_dumpSave_batteryless));
+            else
+                thread = new Thread(new ThreadStart(mission_dumpRam));
 
             thread.Start();
         }
@@ -316,7 +325,10 @@ namespace ChisFlashBurner
 
             disableButton(true);
 
-            thread = new Thread(new ThreadStart(mission_verifyRam));
+            if (comboBox_ramType.Text == "免电")
+                thread = new Thread(new ThreadStart(mission_verifySave_batteryless));
+            else
+                thread = new Thread(new ThreadStart(mission_verifyRam));
 
             thread.Start();
         }
@@ -537,7 +549,7 @@ namespace ChisFlashBurner
 
             string extension = Path.GetExtension(filePath);
 
-            if(extension.ToLower() == ".sav")
+            if (extension.ToLower() == ".sav")
             {
                 setTextbox_save(filePath);
             }
@@ -573,9 +585,10 @@ namespace ChisFlashBurner
                 comboBox_saveSize_mbc5.Text = "128";
             }
 
-
+            comboBox_gbaMultiCartSelect.SelectedIndex = 0;
             comboBox_ramType.SelectedIndex = 1;
             comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
+            comboBox_mbc5RamType.SelectedIndex = 0;
         }
 
 
@@ -611,7 +624,99 @@ namespace ChisFlashBurner
                     comboBox_romSize_mbc5.Text = "8";
                 tabControl1.SelectTab(1);
                 comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
+                comboBox_mbc5RamType.SelectedIndex = 0;
             }
+        }
+
+
+
+        //////////////////////////////////////////////////////
+        /// 下面是工具
+        ///
+
+
+        // GBA 震动测试
+        private void btn_rumbleTest_gba_Click(object sender, EventArgs e)
+        {
+            if (!openPort())
+                return;
+
+            disableButton(true);
+
+            thread = new Thread(new ThreadStart(mission_rumbleTest_gba));
+
+            thread.Start();
+
+        }
+
+        private void btn_unlockPPB_gba_Click(object sender, EventArgs e)
+        {
+            if (!openPort())
+                return;
+
+            disableButton(true);
+
+            thread = new Thread(new ThreadStart(mission_unlockPPB_gba));
+
+            thread.Start();
+
+        }
+
+        private void btn_unlockPPB_mbc5_Click(object sender, EventArgs e)
+        {
+            if (!openPort())
+                return;
+
+            disableButton(true);
+
+            thread = new Thread(new ThreadStart(mission_unlockPPB_mbc5));
+
+            thread.Start();
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                port.DiscardOutBuffer();
+                port.DiscardInBuffer();
+
+                Thread.Sleep(123);
+
+                if (thread != null && thread.IsAlive)
+                    thread.Abort();
+                if (port != null && port.IsOpen)
+                    port.Close();
+
+                enableButton();
+
+                printLog("已取消");
+            }
+            catch { }
+        }
+
+        private void btn_setRTC_gba_Click(object sender, EventArgs e)
+        {
+            if (!openPort())
+                return;
+
+            disableButton(true);
+
+            thread = new Thread(new ThreadStart(mission_setRTC_gba));
+
+            thread.Start();
+        }
+
+        private void btn_setRTC_mbc_Click(object sender, EventArgs e)
+        {
+            if (!openPort())
+                return;
+
+            disableButton(true);
+
+            thread = new Thread(new ThreadStart(mission_setRTC_mbc3));
+
+            thread.Start();
         }
     }
 }
