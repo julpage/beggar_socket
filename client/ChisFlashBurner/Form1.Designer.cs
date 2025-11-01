@@ -61,6 +61,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.comboBox_gbaMultiCartSelect = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBox_mbc5V = new System.Windows.Forms.CheckBox();
+            this.comboBox_mbcType = new System.Windows.Forms.ComboBox();
             this.comboBox_mbc5RamType = new System.Windows.Forms.ComboBox();
             this.btn_eraseChip_mbc5 = new System.Windows.Forms.Button();
             this.comboBox_mbc5MultiCartSelect = new System.Windows.Forms.ComboBox();
@@ -93,7 +95,7 @@
             // btn_browseRom
             // 
             this.btn_browseRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_browseRom.Location = new System.Drawing.Point(397, 10);
+            this.btn_browseRom.Location = new System.Drawing.Point(468, 10);
             this.btn_browseRom.Name = "btn_browseRom";
             this.btn_browseRom.Size = new System.Drawing.Size(60, 23);
             this.btn_browseRom.TabIndex = 0;
@@ -107,7 +109,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_romPath.Location = new System.Drawing.Point(46, 12);
             this.textBox_romPath.Name = "textBox_romPath";
-            this.textBox_romPath.Size = new System.Drawing.Size(345, 21);
+            this.textBox_romPath.Size = new System.Drawing.Size(416, 21);
             this.textBox_romPath.TabIndex = 1;
             // 
             // comboBox_com
@@ -119,7 +121,7 @@
             this.comboBox_com.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox_com.ForeColor = System.Drawing.SystemColors.InfoText;
             this.comboBox_com.FormattingEnabled = true;
-            this.comboBox_com.Location = new System.Drawing.Point(463, 12);
+            this.comboBox_com.Location = new System.Drawing.Point(534, 12);
             this.comboBox_com.Name = "comboBox_com";
             this.comboBox_com.Size = new System.Drawing.Size(123, 20);
             this.comboBox_com.TabIndex = 2;
@@ -127,7 +129,7 @@
             // btn_readID
             // 
             this.btn_readID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readID.Location = new System.Drawing.Point(526, 39);
+            this.btn_readID.Location = new System.Drawing.Point(597, 39);
             this.btn_readID.Name = "btn_readID";
             this.btn_readID.Size = new System.Drawing.Size(60, 23);
             this.btn_readID.TabIndex = 3;
@@ -146,7 +148,7 @@
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ReadOnly = true;
             this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_log.Size = new System.Drawing.Size(574, 243);
+            this.textBox_log.Size = new System.Drawing.Size(645, 243);
             this.textBox_log.TabIndex = 4;
             // 
             // progressBar_total
@@ -155,7 +157,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar_total.Location = new System.Drawing.Point(12, 421);
             this.progressBar_total.Name = "progressBar_total";
-            this.progressBar_total.Size = new System.Drawing.Size(574, 23);
+            this.progressBar_total.Size = new System.Drawing.Size(645, 23);
             this.progressBar_total.TabIndex = 7;
             // 
             // statusStrip1
@@ -167,7 +169,7 @@
             this.label_speed});
             this.statusStrip1.Location = new System.Drawing.Point(0, 451);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(598, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(669, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -181,7 +183,7 @@
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(439, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(510, 17);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // label_speed
@@ -214,13 +216,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_savePath.Location = new System.Drawing.Point(46, 39);
             this.textBox_savePath.Name = "textBox_savePath";
-            this.textBox_savePath.Size = new System.Drawing.Size(345, 21);
+            this.textBox_savePath.Size = new System.Drawing.Size(416, 21);
             this.textBox_savePath.TabIndex = 13;
             // 
             // btn_browseSave
             // 
             this.btn_browseSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_browseSave.Location = new System.Drawing.Point(397, 38);
+            this.btn_browseSave.Location = new System.Drawing.Point(468, 38);
             this.btn_browseSave.Name = "btn_browseSave";
             this.btn_browseSave.Size = new System.Drawing.Size(60, 23);
             this.btn_browseSave.TabIndex = 14;
@@ -231,7 +233,7 @@
             // btn_eraseChip
             // 
             this.btn_eraseChip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_eraseChip.Location = new System.Drawing.Point(485, 11);
+            this.btn_eraseChip.Location = new System.Drawing.Point(556, 11);
             this.btn_eraseChip.Name = "btn_eraseChip";
             this.btn_eraseChip.Size = new System.Drawing.Size(75, 52);
             this.btn_eraseChip.TabIndex = 15;
@@ -242,7 +244,7 @@
             // btn_writeRom
             // 
             this.btn_writeRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeRom.Location = new System.Drawing.Point(242, 11);
+            this.btn_writeRom.Location = new System.Drawing.Point(313, 11);
             this.btn_writeRom.Name = "btn_writeRom";
             this.btn_writeRom.Size = new System.Drawing.Size(75, 23);
             this.btn_writeRom.TabIndex = 16;
@@ -253,7 +255,7 @@
             // btn_readRom
             // 
             this.btn_readRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readRom.Location = new System.Drawing.Point(323, 11);
+            this.btn_readRom.Location = new System.Drawing.Point(394, 11);
             this.btn_readRom.Name = "btn_readRom";
             this.btn_readRom.Size = new System.Drawing.Size(75, 23);
             this.btn_readRom.TabIndex = 17;
@@ -264,7 +266,7 @@
             // btn_verifyRom
             // 
             this.btn_verifyRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifyRom.Location = new System.Drawing.Point(404, 11);
+            this.btn_verifyRom.Location = new System.Drawing.Point(475, 11);
             this.btn_verifyRom.Name = "btn_verifyRom";
             this.btn_verifyRom.Size = new System.Drawing.Size(75, 23);
             this.btn_verifyRom.TabIndex = 18;
@@ -275,7 +277,7 @@
             // btn_writeSave
             // 
             this.btn_writeSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeSave.Location = new System.Drawing.Point(242, 40);
+            this.btn_writeSave.Location = new System.Drawing.Point(313, 40);
             this.btn_writeSave.Name = "btn_writeSave";
             this.btn_writeSave.Size = new System.Drawing.Size(75, 23);
             this.btn_writeSave.TabIndex = 19;
@@ -286,7 +288,7 @@
             // btn_readSave
             // 
             this.btn_readSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readSave.Location = new System.Drawing.Point(323, 40);
+            this.btn_readSave.Location = new System.Drawing.Point(394, 40);
             this.btn_readSave.Name = "btn_readSave";
             this.btn_readSave.Size = new System.Drawing.Size(75, 23);
             this.btn_readSave.TabIndex = 20;
@@ -297,7 +299,7 @@
             // btn_verifySave
             // 
             this.btn_verifySave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifySave.Location = new System.Drawing.Point(404, 40);
+            this.btn_verifySave.Location = new System.Drawing.Point(475, 40);
             this.btn_verifySave.Name = "btn_verifySave";
             this.btn_verifySave.Size = new System.Drawing.Size(75, 23);
             this.btn_verifySave.TabIndex = 21;
@@ -332,9 +334,9 @@
             this.comboBox_saveSize.Items.AddRange(new object[] {
             "64",
             "128"});
-            this.comboBox_saveSize.Location = new System.Drawing.Point(89, 42);
+            this.comboBox_saveSize.Location = new System.Drawing.Point(95, 42);
             this.comboBox_saveSize.Name = "comboBox_saveSize";
-            this.comboBox_saveSize.Size = new System.Drawing.Size(64, 20);
+            this.comboBox_saveSize.Size = new System.Drawing.Size(112, 20);
             this.comboBox_saveSize.TabIndex = 24;
             // 
             // comboBox_romSize
@@ -342,9 +344,9 @@
             this.comboBox_romSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_romSize.FormattingEnabled = true;
-            this.comboBox_romSize.Location = new System.Drawing.Point(89, 13);
+            this.comboBox_romSize.Location = new System.Drawing.Point(95, 13);
             this.comboBox_romSize.Name = "comboBox_romSize";
-            this.comboBox_romSize.Size = new System.Drawing.Size(64, 20);
+            this.comboBox_romSize.Size = new System.Drawing.Size(112, 20);
             this.comboBox_romSize.TabIndex = 25;
             // 
             // tmr_showSpeed
@@ -356,7 +358,7 @@
             // btn_renewPort
             // 
             this.btn_renewPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_renewPort.Location = new System.Drawing.Point(463, 39);
+            this.btn_renewPort.Location = new System.Drawing.Point(534, 39);
             this.btn_renewPort.Name = "btn_renewPort";
             this.btn_renewPort.Size = new System.Drawing.Size(60, 23);
             this.btn_renewPort.TabIndex = 26;
@@ -375,9 +377,9 @@
             "SRAM",
             "FRAM",
             "免电"});
-            this.comboBox_ramType.Location = new System.Drawing.Point(159, 42);
+            this.comboBox_ramType.Location = new System.Drawing.Point(213, 42);
             this.comboBox_ramType.Name = "comboBox_ramType";
-            this.comboBox_ramType.Size = new System.Drawing.Size(77, 20);
+            this.comboBox_ramType.Size = new System.Drawing.Size(94, 20);
             this.comboBox_ramType.TabIndex = 27;
             // 
             // tabControl1
@@ -390,7 +392,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 68);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(574, 98);
+            this.tabControl1.Size = new System.Drawing.Size(645, 98);
             this.tabControl1.TabIndex = 28;
             // 
             // tabPage1
@@ -411,7 +413,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(566, 72);
+            this.tabPage1.Size = new System.Drawing.Size(637, 72);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "GBA";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -552,13 +554,15 @@
             "合卡504M",
             "合卡508M",
             "合卡512M"});
-            this.comboBox_gbaMultiCartSelect.Location = new System.Drawing.Point(159, 13);
+            this.comboBox_gbaMultiCartSelect.Location = new System.Drawing.Point(213, 13);
             this.comboBox_gbaMultiCartSelect.Name = "comboBox_gbaMultiCartSelect";
-            this.comboBox_gbaMultiCartSelect.Size = new System.Drawing.Size(77, 20);
+            this.comboBox_gbaMultiCartSelect.Size = new System.Drawing.Size(94, 20);
             this.comboBox_gbaMultiCartSelect.TabIndex = 40;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBox_mbc5V);
+            this.tabPage2.Controls.Add(this.comboBox_mbcType);
             this.tabPage2.Controls.Add(this.comboBox_mbc5RamType);
             this.tabPage2.Controls.Add(this.btn_eraseChip_mbc5);
             this.tabPage2.Controls.Add(this.comboBox_mbc5MultiCartSelect);
@@ -575,10 +579,35 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(566, 72);
+            this.tabPage2.Size = new System.Drawing.Size(637, 72);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "MBC5";
+            this.tabPage2.Text = "MBC3/5";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_mbc5V
+            // 
+            this.checkBox_mbc5V.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_mbc5V.AutoSize = true;
+            this.checkBox_mbc5V.Location = new System.Drawing.Point(247, 45);
+            this.checkBox_mbc5V.Name = "checkBox_mbc5V";
+            this.checkBox_mbc5V.Size = new System.Drawing.Size(36, 16);
+            this.checkBox_mbc5V.TabIndex = 42;
+            this.checkBox_mbc5V.Text = "5V";
+            this.checkBox_mbc5V.UseVisualStyleBackColor = true;
+            // 
+            // comboBox_mbcType
+            // 
+            this.comboBox_mbcType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_mbcType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_mbcType.DropDownWidth = 60;
+            this.comboBox_mbcType.FormattingEnabled = true;
+            this.comboBox_mbcType.Items.AddRange(new object[] {
+            "MBC3",
+            "MBC5"});
+            this.comboBox_mbcType.Location = new System.Drawing.Point(246, 13);
+            this.comboBox_mbcType.Name = "comboBox_mbcType";
+            this.comboBox_mbcType.Size = new System.Drawing.Size(61, 20);
+            this.comboBox_mbcType.TabIndex = 41;
             // 
             // comboBox_mbc5RamType
             // 
@@ -589,7 +618,7 @@
             this.comboBox_mbc5RamType.Items.AddRange(new object[] {
             "SRAM",
             "FRAM"});
-            this.comboBox_mbc5RamType.Location = new System.Drawing.Point(159, 42);
+            this.comboBox_mbc5RamType.Location = new System.Drawing.Point(163, 42);
             this.comboBox_mbc5RamType.Name = "comboBox_mbc5RamType";
             this.comboBox_mbc5RamType.Size = new System.Drawing.Size(77, 20);
             this.comboBox_mbc5RamType.TabIndex = 40;
@@ -597,7 +626,7 @@
             // btn_eraseChip_mbc5
             // 
             this.btn_eraseChip_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_eraseChip_mbc5.Location = new System.Drawing.Point(485, 11);
+            this.btn_eraseChip_mbc5.Location = new System.Drawing.Point(556, 11);
             this.btn_eraseChip_mbc5.Name = "btn_eraseChip_mbc5";
             this.btn_eraseChip_mbc5.Size = new System.Drawing.Size(75, 52);
             this.btn_eraseChip_mbc5.TabIndex = 28;
@@ -630,7 +659,7 @@
             "14/16 (max)",
             "15/16 (max)",
             "16/16 (max)"});
-            this.comboBox_mbc5MultiCartSelect.Location = new System.Drawing.Point(159, 13);
+            this.comboBox_mbc5MultiCartSelect.Location = new System.Drawing.Point(163, 13);
             this.comboBox_mbc5MultiCartSelect.Name = "comboBox_mbc5MultiCartSelect";
             this.comboBox_mbc5MultiCartSelect.Size = new System.Drawing.Size(77, 20);
             this.comboBox_mbc5MultiCartSelect.TabIndex = 39;
@@ -639,7 +668,7 @@
             // btn_verifyRom_mbc5
             // 
             this.btn_verifyRom_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifyRom_mbc5.Location = new System.Drawing.Point(404, 11);
+            this.btn_verifyRom_mbc5.Location = new System.Drawing.Point(475, 11);
             this.btn_verifyRom_mbc5.Name = "btn_verifyRom_mbc5";
             this.btn_verifyRom_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_verifyRom_mbc5.TabIndex = 31;
@@ -650,7 +679,7 @@
             // btn_verifySave_mbc5
             // 
             this.btn_verifySave_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_verifySave_mbc5.Location = new System.Drawing.Point(404, 40);
+            this.btn_verifySave_mbc5.Location = new System.Drawing.Point(475, 40);
             this.btn_verifySave_mbc5.Name = "btn_verifySave_mbc5";
             this.btn_verifySave_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_verifySave_mbc5.TabIndex = 34;
@@ -672,7 +701,7 @@
             "512"});
             this.comboBox_saveSize_mbc5.Location = new System.Drawing.Point(89, 42);
             this.comboBox_saveSize_mbc5.Name = "comboBox_saveSize_mbc5";
-            this.comboBox_saveSize_mbc5.Size = new System.Drawing.Size(64, 20);
+            this.comboBox_saveSize_mbc5.Size = new System.Drawing.Size(68, 20);
             this.comboBox_saveSize_mbc5.TabIndex = 37;
             // 
             // comboBox_romSize_mbc5
@@ -687,7 +716,7 @@
             "32.0"});
             this.comboBox_romSize_mbc5.Location = new System.Drawing.Point(89, 13);
             this.comboBox_romSize_mbc5.Name = "comboBox_romSize_mbc5";
-            this.comboBox_romSize_mbc5.Size = new System.Drawing.Size(64, 20);
+            this.comboBox_romSize_mbc5.Size = new System.Drawing.Size(68, 20);
             this.comboBox_romSize_mbc5.TabIndex = 38;
             // 
             // label1
@@ -702,7 +731,7 @@
             // btn_readRom_mbc5
             // 
             this.btn_readRom_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readRom_mbc5.Location = new System.Drawing.Point(323, 11);
+            this.btn_readRom_mbc5.Location = new System.Drawing.Point(394, 11);
             this.btn_readRom_mbc5.Name = "btn_readRom_mbc5";
             this.btn_readRom_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_readRom_mbc5.TabIndex = 30;
@@ -722,7 +751,7 @@
             // btn_readSave_mbc5
             // 
             this.btn_readSave_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_readSave_mbc5.Location = new System.Drawing.Point(323, 40);
+            this.btn_readSave_mbc5.Location = new System.Drawing.Point(394, 40);
             this.btn_readSave_mbc5.Name = "btn_readSave_mbc5";
             this.btn_readSave_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_readSave_mbc5.TabIndex = 33;
@@ -733,7 +762,7 @@
             // btn_writeRom_mbc5
             // 
             this.btn_writeRom_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeRom_mbc5.Location = new System.Drawing.Point(242, 11);
+            this.btn_writeRom_mbc5.Location = new System.Drawing.Point(313, 11);
             this.btn_writeRom_mbc5.Name = "btn_writeRom_mbc5";
             this.btn_writeRom_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_writeRom_mbc5.TabIndex = 29;
@@ -744,7 +773,7 @@
             // btn_writeSave_mbc5
             // 
             this.btn_writeSave_mbc5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_writeSave_mbc5.Location = new System.Drawing.Point(242, 40);
+            this.btn_writeSave_mbc5.Location = new System.Drawing.Point(313, 40);
             this.btn_writeSave_mbc5.Name = "btn_writeSave_mbc5";
             this.btn_writeSave_mbc5.Size = new System.Drawing.Size(75, 23);
             this.btn_writeSave_mbc5.TabIndex = 32;
@@ -765,7 +794,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(566, 72);
+            this.tabPage3.Size = new System.Drawing.Size(637, 72);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "工具";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -774,7 +803,7 @@
             // 
             this.btn_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_cancel.Enabled = false;
-            this.btn_cancel.Location = new System.Drawing.Point(485, 11);
+            this.btn_cancel.Location = new System.Drawing.Point(556, 11);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(75, 52);
             this.btn_cancel.TabIndex = 16;
@@ -855,7 +884,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 473);
+            this.ClientSize = new System.Drawing.Size(669, 473);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_renewPort);
             this.Controls.Add(this.btn_browseSave);
@@ -869,7 +898,7 @@
             this.Controls.Add(this.comboBox_com);
             this.Controls.Add(this.textBox_romPath);
             this.Controls.Add(this.btn_browseRom);
-            this.MinimumSize = new System.Drawing.Size(600, 512);
+            this.MinimumSize = new System.Drawing.Size(685, 512);
             this.Name = "Form1";
             this.Text = "ChisFlash Burner";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
@@ -944,6 +973,8 @@
         private System.Windows.Forms.Button btn_unlockPPB_mbc5;
         private System.Windows.Forms.ComboBox comboBox_mbc5RamType;
         private System.Windows.Forms.Button btn_cancel;
+        private System.Windows.Forms.ComboBox comboBox_mbcType;
+        private System.Windows.Forms.CheckBox checkBox_mbc5V;
     }
 }
 

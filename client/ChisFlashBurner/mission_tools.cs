@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace ChisFlashBurner
 {
@@ -193,7 +194,7 @@ namespace ChisFlashBurner
             this.Size = new System.Drawing.Size(width, height);
 
             printLog("解锁PPB");
-            mbc5_romSwitchBank(0);
+            mbc_romSwitchBank(mbcTypeSelected(), 0);
 
             // reset
             gbcCart_write(0, new byte[] { 0x90 });
@@ -243,7 +244,7 @@ namespace ChisFlashBurner
                 if (bank != currentBank)
                 {
                     currentBank = bank;
-                    mbc5_romSwitchBank(bank);
+                    mbc_romSwitchBank(mbcTypeSelected(), bank);
                 }
 
                 if (bank == 0)
@@ -294,7 +295,6 @@ namespace ChisFlashBurner
                 }
             }
 
-
             // All PPB Erase
             printLog("---- All PPB Erase ----");
             // Non-Volatile Sector Protection Command Set Definitions
@@ -317,7 +317,7 @@ namespace ChisFlashBurner
                 if (bank != currentBank)
                 {
                     currentBank = bank;
-                    mbc5_romSwitchBank(bank);
+                    mbc_romSwitchBank(mbcTypeSelected(), bank);
                 }
 
                 if (bank == 0)
@@ -345,8 +345,7 @@ namespace ChisFlashBurner
             }
             printLog(str);
 
-
-            mbc5_romSwitchBank(0);
+            mbc_romSwitchBank(mbcTypeSelected(), 0);
             printLog("-----------------------");
             port.Close();
             enableButton();

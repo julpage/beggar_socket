@@ -51,7 +51,6 @@ namespace ChisFlashBurner
             }
         }
 
-
         void gba_romSwitchBank_byAddr(int addr)
         {
             int bank = addr / (32 * 1024 * 1024);
@@ -96,6 +95,42 @@ namespace ChisFlashBurner
             temp = BitConverter.ToUInt16(cfi, 16); // 2f
             temp1 = BitConverter.ToUInt16(cfi, 18); // 30
             sectorSize = (((temp1 & 0xff) << 8) | (temp & 0xff)) * 256;
+        }
+
+
+        int gba_romGetEraseTime()
+        {
+            int deviceSize, sectorCount, sectorSize, bufferWriteBytes;
+            gba_romGetSize(out sectorCount, out sectorSize, out bufferWriteBytes, out deviceSize);
+
+            byte[] cfi = new byte[20];
+            int temp;
+
+            // CFI Query
+            rom_write(0x55, BitConverter.GetBytes((UInt16)0x98));
+            rom_read(0x1f << 1, ref cfi);
+            // reset
+            rom_write(0x00, BitConverter.GetBytes((UInt16)0xf0));
+
+            //Typical timeout per individual block erase = 2^n ms
+            temp = BitConverter.ToUInt16(cfi, 4);
+            int timeout_block = (int)Math.Pow(2, temp);
+
+            //Typical timeout for full chip erase = 2^nms
+            temp = BitConverter.ToUInt16(cfi, 6);
+            int timeout_chip = (int)Math.Pow(2, temp);
+
+            //// Maximum timeout for chip erase = 2n times typical
+            //temp = BitConverter.ToUInt16(cfi, 14);
+            //int timeout_chipMax = (int)Math.Pow(2, temp);
+
+            //return timeout_chip * timeout_chipMax;
+            //return (int)(timeout_chip * 1.5);
+            //return timeout_chip;
+            if (timeout_chip == 0)
+                return timeout_block * sectorCount;
+            else
+                return timeout_chip;
         }
 
         void gba_romEraseSector(int addrFrom, int addrTo, int sectorSize, bool isMultiCard = false)
@@ -254,58 +289,65 @@ namespace ChisFlashBurner
 
         void mission_eraseChip()
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
 
             // 02g的胶水双核要擦两次
             byte[] id = new byte[8];
             rom_readID(ref id);
 
             bool isS70GL02 = id.SequenceEqual(new byte[] { 0x01, 0x00, 0x7e, 0x22, 0x48, 0x22, 0x01, 0x22 });
-
             if (isS70GL02)
                 gba_romSwitchBank(0);
 
-            // 擦
+            // 获取擦除时间
+            int eraseTimeMs = gba_romGetEraseTime();
+
+            // 开擦
             rom_eraseChip();
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             // 检查结果
             while (true)
             {
+                showProgress(
+                    (int)stopwatch.ElapsedMilliseconds,
+                    eraseTimeMs
+                );
+
                 byte[] respon = new byte[2];
                 rom_read(0x000000, ref respon);
 
                 printLog(string.Format("..... {0:x4}", BitConverter.ToUInt16(respon, 0)));
                 if (BitConverter.ToUInt16(respon, 0) == 0xffff)
-                {
                     break;
-                }
                 else
-                {
                     Thread.Sleep(1000);
-                }
             }
 
             if (isS70GL02)
             {
-                gba_romSwitchBank(5);
+                gba_romSwitchBank(4);
+                printLog("02G再擦1次");
 
                 // 擦
                 rom_eraseChip();
                 // 检查结果
                 while (true)
                 {
+                    showProgress(
+                        (int)stopwatch.ElapsedMilliseconds,
+                        eraseTimeMs
+                    );
+
                     byte[] respon = new byte[2];
                     rom_read(0x000000, ref respon);
 
                     printLog(string.Format("..... {0:x4}", BitConverter.ToUInt16(respon, 0)));
                     if (BitConverter.ToUInt16(respon, 0) == 0xffff)
-                    {
                         break;
-                    }
                     else
-                    {
                         Thread.Sleep(1000);
-                    }
                 }
             }
 
@@ -322,7 +364,7 @@ namespace ChisFlashBurner
             // 打开文件
             string romFilePath = textBox_romPath.Text;
 
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(romFilePath, FileMode.Open, FileAccess.Read);
@@ -428,6 +470,7 @@ namespace ChisFlashBurner
 
                 // 写入
                 rom_program((UInt32)romAddress, sendPack, (UInt16)bufferWriteBytes);
+                //rom_program((UInt32)romAddress, sendPack, 0);
 
                 writtenCount += sentLen;
                 showProgress(writtenCount, romBufSize);
@@ -444,7 +487,7 @@ namespace ChisFlashBurner
         {
             // 打开文件
             string romFilePath = textBox_romPath.Text;
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(romFilePath, FileMode.Create, FileAccess.Write);
@@ -542,7 +585,7 @@ namespace ChisFlashBurner
             // 打开文件
             string romFilePath = textBox_romPath.Text;
 
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(romFilePath, FileMode.Open, FileAccess.Read);
@@ -608,6 +651,7 @@ namespace ChisFlashBurner
                 // 分包
                 int readLen = romBufSize - readCount;
                 readLen = readLen > 4096 ? 4096 : readLen;
+                //readLen = readLen > 32768 ? 32768 : readLen;
 
                 int romAddress = addrBegin + readCount;
 
@@ -655,7 +699,7 @@ namespace ChisFlashBurner
             // 打开文件
             string savFilePath = textBox_savePath.Text;
 
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(savFilePath, FileMode.Open, FileAccess.Read);
@@ -688,6 +732,8 @@ namespace ChisFlashBurner
                 ram_write(0x5555, new byte[] { 0xaa });
                 ram_write(0x2aaa, new byte[] { 0x55 });
                 ram_write(0x5555, new byte[] { 0x10 }); // Chip-Erase
+                //ram_write(0x7654, new byte[] { 0x30 }); // sector-Erase
+                Thread.Sleep(200);
 
                 // 等待擦除完成
                 while (true)
@@ -695,6 +741,7 @@ namespace ChisFlashBurner
                     byte[] respon = new byte[1];
 
                     ram_read(0x0000, ref respon);
+                    //ram_read(0x7654, ref respon);
 
                     printLog(string.Format("..... {0:x2}", respon[0]));
                     if (respon[0] == 0xff)
@@ -705,10 +752,14 @@ namespace ChisFlashBurner
                     }
                     else
                     {
-                        Thread.Sleep(1000);
+                        Thread.Sleep(200);
                     }
 
                 }
+
+                //port.Close();
+                //enableButton();
+                //return;
             }
 
             // 开始写入
@@ -842,7 +893,7 @@ namespace ChisFlashBurner
             // 打开文件
             string savFilePath = textBox_savePath.Text;
 
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(savFilePath, FileMode.Open, FileAccess.Read);
@@ -1007,7 +1058,7 @@ namespace ChisFlashBurner
             // 打开文件
             string savFilePath = textBox_savePath.Text;
 
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(savFilePath, FileMode.Open, FileAccess.Read);
@@ -1102,7 +1153,7 @@ namespace ChisFlashBurner
         {
             // 打开文件
             string romFilePath = textBox_savePath.Text;
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(romFilePath, FileMode.Create, FileAccess.Write);
@@ -1190,7 +1241,7 @@ namespace ChisFlashBurner
             // 打开文件
             string savFilePath = textBox_savePath.Text;
 
-            FileStream file;
+            //FileStream file;
             try
             {
                 file = new FileStream(savFilePath, FileMode.Open, FileAccess.Read);
@@ -1219,8 +1270,6 @@ namespace ChisFlashBurner
 
             if (isMultiCard)
                 gba_romSwitchBank_byAddr(baseAddress);
-
-
 
             // 找呀找呀找存档
             int sav_offset, sav_size;
@@ -1265,7 +1314,7 @@ namespace ChisFlashBurner
 
 
                 // 对比
-                for(int i=0; i<readLen; i++)
+                for (int i = 0; i < readLen; i++)
                 {
                     if (sav[readCount + i] != respon[i])
                     {

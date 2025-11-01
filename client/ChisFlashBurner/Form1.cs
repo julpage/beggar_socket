@@ -22,6 +22,9 @@ namespace ChisFlashBurner
     {
         Thread thread;
         SerialPort port;
+        FileStream file;
+
+        bool pwr_5v_enabled = false;
 
         Dictionary<string, string> serialPorts = new Dictionary<string, string>();
 
@@ -32,10 +35,19 @@ namespace ChisFlashBurner
             label_progress.Text = "";
             label_speed.Text = "";
 
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(checkBox_mbc5V, "没有必要就别打开了");
+
             // 搜索串口
             btn_renewPort_Click(null, null);
 
             CheckForIllegalCrossThreadCalls = false;
+
+            comboBox_gbaMultiCartSelect.SelectedIndex = 0;
+            comboBox_ramType.SelectedIndex = 1;
+            comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
+            comboBox_mbc5RamType.SelectedIndex = 0;
+            comboBox_mbcType.Text = "MBC5";
 
         }
 
@@ -165,16 +177,17 @@ namespace ChisFlashBurner
             }
             else // 取消任务
             {
-
                 port.DiscardOutBuffer();
                 port.DiscardInBuffer();
-
                 Thread.Sleep(123);
 
                 if (thread != null && thread.IsAlive)
                     thread.Abort();
                 if (port != null && port.IsOpen)
                     port.Close();
+
+                if (file != null)
+                    file.Close();
 
                 enableButton();
 
@@ -357,11 +370,21 @@ namespace ChisFlashBurner
             }
             else // 取消任务
             {
-
                 port.DiscardOutBuffer();
                 port.DiscardInBuffer();
-
                 Thread.Sleep(123);
+
+                if (pwr_5v_enabled)
+                {
+                    pwr_5v_enabled = false;
+                    port.RtsEnable = true;
+                    port.DtrEnable = true;
+                    port.RtsEnable = false;
+                    port.DtrEnable = false;
+                    Thread.Sleep(10);
+                    cart_power(true, false); //3.3v
+                    printLog("关闭5V");
+                }
 
                 if (thread != null && thread.IsAlive)
                     thread.Abort();
@@ -369,6 +392,11 @@ namespace ChisFlashBurner
                     port.Close();
 
                 enableButton();
+
+                if (file != null)
+                {
+                    file.Close();
+                }
 
                 printLog("已取消");
             }
@@ -625,6 +653,24 @@ namespace ChisFlashBurner
                 tabControl1.SelectTab(1);
                 comboBox_mbc5MultiCartSelect.SelectedIndex = 0;
                 comboBox_mbc5RamType.SelectedIndex = 0;
+
+                switch (mbcTypeDetect())
+                {
+                    case 1:
+                        comboBox_mbcType.SelectedItem = "MBC1";
+                        break;
+                    case 2:
+                        comboBox_mbcType.SelectedItem = "MBC2";
+                        break;
+                    case 3:
+                        comboBox_mbcType.SelectedItem = "MBC3";
+                        break;
+                    case 5:
+                    default:
+                        comboBox_mbcType.SelectedItem = "MBC5";
+                        break;
+                }
+
             }
         }
 
@@ -680,7 +726,6 @@ namespace ChisFlashBurner
             {
                 port.DiscardOutBuffer();
                 port.DiscardInBuffer();
-
                 Thread.Sleep(123);
 
                 if (thread != null && thread.IsAlive)

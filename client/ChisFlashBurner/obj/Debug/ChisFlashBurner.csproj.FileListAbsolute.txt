@@ -31,3 +31,4 @@ G:\更新20250414\上位机\ChisFlashBurner\obj\Debug\ChisFlashBurner.pdb
 Y:\sync\Disk\Self-study\C#\ChisFlashBurner\ChisFlashBurner\obj\Debug\ChisFlashBurner.exe.config
 F:\disk\Self-study\C#\ChisFlashBurner\ChisFlashBurner\obj\Debug\ChisFlashBurner.Form_gba_rtc.resources
 F:\disk\Self-study\C#\ChisFlashBurner\ChisFlashBurner\obj\Debug\ChisFlashBurner.Form_mbc3_rtc.resources
+F:\disk\Self-study\C#\ChisFlashBurner\ChisFlashBurner\obj\Debug\ChisFlashBurner.exe.config

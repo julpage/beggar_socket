@@ -433,6 +433,46 @@ namespace ChisFlashBurner
             return valid;
         }
 
+        /////////////////////////////////////////////
+        /// 碳酸丐专属
 
+        void cart_power(bool en, bool _5v)
+        {
+            byte[] pack = new byte[2];
+
+            pack[0] = 0xa0;
+
+            if (!en)
+                pack[1] = 0; // 断电
+            else if (_5v)
+                pack[1] = 2; // 5v
+            else
+                pack[1] = 1; // 3.3v
+
+            sendPackage(pack);
+
+            Thread.Sleep(10);
+            port.RtsEnable = true;
+            port.DtrEnable = true;
+            port.RtsEnable = false;
+            port.DtrEnable = false;
+            Thread.Sleep(10);
+        }
+
+        void cart_phiDiv(int div)
+        {
+            byte[] pack = new byte[2];
+
+            pack[0] = 0xa1;
+            pack[1] = (byte)(div & 0x7f);
+
+            sendPackage(pack);
+
+            Thread.Sleep(10);
+            port.RtsEnable = true;
+            port.DtrEnable = true;
+            port.RtsEnable = false;
+            port.DtrEnable = false;
+        }
     }
 }
