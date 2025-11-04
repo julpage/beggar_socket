@@ -172,7 +172,7 @@ void uart_cmdRecv(uint8_t *buf, uint32_t len)
 void uart_clearRecvBuf()
 {
     cmdBuf_p = 0;
-    memset(cmdBuf, 0, sizeof(cmdBuf));
+    //memset(cmdBuf, 0, sizeof(cmdBuf));
     busy = 0;
 }
 
