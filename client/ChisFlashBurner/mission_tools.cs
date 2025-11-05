@@ -401,12 +401,14 @@ namespace ChisFlashBurner
             byte[] read1 = new byte[6];
             byte[] read2 = new byte[6];
 
-            rom_read(0xc4, ref read1);
+            rom_write(0xc8 >> 1, BitConverter.GetBytes((UInt16)(0x01))); // enable gpio
             rom_write(0xc6 >> 1, BitConverter.GetBytes((UInt16)7));      // cs sio sck output
             rom_write(0xc4 >> 1, BitConverter.GetBytes((UInt16)1));      // cs 0, sck 1
-            rom_write(0xc8 >> 1, BitConverter.GetBytes((UInt16)(0x01))); // enable gpio
-            rom_read(0xc4, ref read2);
+            rom_read(0xc4, ref read1);
+
             rom_write(0xc8 >> 1, BitConverter.GetBytes((UInt16)(0x00))); // diable gpio
+            rom_read(0xc4, ref read2);
+
             printLog(
                 string.Format("{0:s} <-> {1:s}",
                 BitConverter.ToString(read1).Replace("-", " "),

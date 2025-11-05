@@ -3,7 +3,7 @@
 ../Core/Src/uart.c:121:6:uart_responData	32	static
 ../Core/Src/uart.c:147:6:uart_responAck	16	static
 ../Core/Src/uart.c:159:6:uart_cmdRecv	24	static
-../Core/Src/uart.c:172:6:uart_clearRecvBuf	8	static
+../Core/Src/uart.c:172:6:uart_clearRecvBuf	4	static
 ../Core/Src/uart.c:179:6:uart_cmdHandler	8	static
 ../Core/Src/uart.c:277:6:romWaitForDone	24	static
 ../Core/Src/uart.c:300:6:romGetID	24	static
