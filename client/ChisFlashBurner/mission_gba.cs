@@ -127,7 +127,7 @@ namespace ChisFlashBurner
             //return timeout_chip * timeout_chipMax;
             //return (int)(timeout_chip * 1.5);
             //return timeout_chip;
-            if (timeout_chip == 0)
+            if (timeout_chip == 1)
                 return timeout_block * sectorCount;
             else
                 return timeout_chip;

@@ -147,7 +147,7 @@ namespace ChisFlashBurner
         {
             if (tabControl1.SelectedTab.Text == "GBA")
                 thread = new Thread(new ThreadStart(mission_readRomID));
-            else if (tabControl1.SelectedTab.Text == "MBC5")
+            else if (tabControl1.SelectedTab.Text == "MBC3/5")
                 thread = new Thread(new ThreadStart(mission_readRomID_mbc5));
             else
                 return;
