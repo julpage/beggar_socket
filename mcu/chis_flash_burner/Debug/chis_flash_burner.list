@@ -3548,12 +3548,12 @@ void gbcWrite_forFram()
  8001496:	b29b      	uxth	r3, r3
  8001498:	60bb      	str	r3, [r7, #8]
     // 写入总数量
-    uint16_t byteCount = uart_cmd->cmdSize - SIZE_CMD_HEADER - SIZE_BASE_ADDRESS - SIZE_CRC;
+    uint16_t byteCount = uart_cmd->cmdSize - SIZE_CMD_HEADER - SIZE_BASE_ADDRESS - SIZE_LATENCY - SIZE_CRC;
  800149a:	4b1b      	ldr	r3, [pc, #108]	@ (8001508 <gbcWrite_forFram+0x84>)
  800149c:	681b      	ldr	r3, [r3, #0]
  800149e:	881b      	ldrh	r3, [r3, #0]
  80014a0:	b29b      	uxth	r3, r3
- 80014a2:	3b09      	subs	r3, #9
+ 80014a2:	3b0a      	subs	r3, #10
  80014a4:	80fb      	strh	r3, [r7, #6]
     // 延迟周期
     uint8_t latency = desc_write->payload[0];

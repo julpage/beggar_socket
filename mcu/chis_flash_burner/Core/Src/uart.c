@@ -835,7 +835,7 @@ void gbcWrite_forFram()
     // 基地址
     uint32_t baseAddress = desc_write->baseAddress & 0xffff;
     // 写入总数量
-    uint16_t byteCount = uart_cmd->cmdSize - SIZE_CMD_HEADER - SIZE_BASE_ADDRESS - SIZE_CRC;
+    uint16_t byteCount = uart_cmd->cmdSize - SIZE_CMD_HEADER - SIZE_BASE_ADDRESS - SIZE_LATENCY - SIZE_CRC;
     // 延迟周期
     uint8_t latency = desc_write->payload[0];
     // 数据
